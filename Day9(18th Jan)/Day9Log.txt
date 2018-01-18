@@ -1,0 +1,1974 @@
+MariaDB [csd2204w18]> show tables;
++----------------------+
+| Tables_in_csd2204w18 |
++----------------------+
+| animals              |
+| countries            |
+| departments          |
+| employees            |
+| job_history          |
+| jobs                 |
+| locations            |
+| manu                 |
+| pet                  |
+| products             |
+| regions              |
++----------------------+
+11 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select avg(salary) from employees;
++-------------+
+| avg(salary) |
++-------------+
+| 6461.682243 |
++-------------+
+1 row in set (0.04 sec)
+
+MariaDB [csd2204w18]> select * from department;
+ERROR 1146 (42S02): Table 'csd2204w18.department' doesn't exist
+MariaDB [csd2204w18]> select * from departments;
++---------------+----------------------+------------+-------------+
+| DEPARTMENT_ID | DEPARTMENT_NAME      | MANAGER_ID | LOCATION_ID |
++---------------+----------------------+------------+-------------+
+|            10 | Administration       |        200 |        1700 |
+|            20 | Marketing            |        201 |        1800 |
+|            30 | Purchasing           |        114 |        1700 |
+|            40 | Human Resources      |        203 |        2400 |
+|            50 | Shipping             |        121 |        1500 |
+|            60 | IT                   |        103 |        1400 |
+|            70 | Public Relations     |        204 |        2700 |
+|            80 | Sales                |        145 |        2500 |
+|            90 | Executive            |        100 |        1700 |
+|           100 | Finance              |        108 |        1700 |
+|           110 | Accounting           |        205 |        1700 |
+|           120 | Treasury             |          0 |        1700 |
+|           130 | Corporate Tax        |          0 |        1700 |
+|           140 | Control And Credit   |          0 |        1700 |
+|           150 | Shareholder Services |          0 |        1700 |
+|           160 | Benefits             |          0 |        1700 |
+|           170 | Manufacturing        |          0 |        1700 |
+|           180 | Construction         |          0 |        1700 |
+|           190 | Contracting          |          0 |        1700 |
+|           200 | Operations           |          0 |        1700 |
+|           210 | IT Support           |          0 |        1700 |
+|           220 | NOC                  |          0 |        1700 |
+|           230 | IT Helpdesk          |          0 |        1700 |
+|           240 | Government Sales     |          0 |        1700 |
+|           250 | Retail Sales         |          0 |        1700 |
+|           260 | Recruiting           |          0 |        1700 |
+|           270 | Payroll              |          0 |        1700 |
++---------------+----------------------+------------+-------------+
+27 rows in set, 3 warnings (0.07 sec)
+
+MariaDB [csd2204w18]> desc employees;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| EMPLOYEE_ID    | decimal(6,0) | NO   | PRI | 0       |       |
+| FIRST_NAME     | varchar(20)  | YES  |     | NULL    |       |
+| LAST_NAME      | varchar(25)  | NO   | MUL | NULL    |       |
+| EMAIL          | varchar(25)  | NO   | UNI | NULL    |       |
+| PHONE_NUMBER   | varchar(20)  | YES  |     | NULL    |       |
+| HIRE_DATE      | date         | NO   |     | NULL    |       |
+| JOB_ID         | varchar(10)  | NO   | MUL | NULL    |       |
+| SALARY         | decimal(8,2) | YES  |     | NULL    |       |
+| COMMISSION_PCT | decimal(2,2) | YES  |     | NULL    |       |
+| MANAGER_ID     | decimal(6,0) | YES  | MUL | NULL    |       |
+| DEPARTMENT_ID  | decimal(4,0) | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+11 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> desc departments;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| DEPARTMENT_ID   | decimal(4,0) | NO   | PRI | 0       |       |
+| DEPARTMENT_NAME | varchar(30)  | NO   |     | NULL    |       |
+| MANAGER_ID      | decimal(6,0) | YES  | MUL | NULL    |       |
+| LOCATION_ID     | decimal(4,0) | YES  | MUL | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> select department_id from deaprtments where department_id IN (select employee_id,first_name,last_name from employees where avg );
+ERROR 1146 (42S02): Table 'csd2204w18.deaprtments' doesn't exist
+MariaDB [csd2204w18]> desc jobs;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| JOB_ID     | varchar(10)  | NO   | PRI |         |       |
+| JOB_TITLE  | varchar(35)  | NO   |     | NULL    |       |
+| MIN_SALARY | decimal(6,0) | YES  |     | NULL    |       |
+| MAX_SALARY | decimal(6,0) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.12 sec)
+
+MariaDB [csd2204w18]> select department_id,avg(salary) from employees;
++---------------+-------------+
+| department_id | avg(salary) |
++---------------+-------------+
+|            90 | 6461.682243 |
++---------------+-------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select distinct(department),avg(salary) from employees;
+ERROR 1054 (42S22): Unknown column 'department' in 'field list'
+MariaDB [csd2204w18]> select distinct(departments),avg(salary) from employees;
+ERROR 1054 (42S22): Unknown column 'departments' in 'field list'
+MariaDB [csd2204w18]> select avg(salary) where department_id = employees_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where department_id = employees_id' at line 1
+MariaDB [csd2204w18]> select avg(salary) from employees where department_id = employees_id;
+ERROR 1054 (42S22): Unknown column 'employees_id' in 'where clause'
+MariaDB [csd2204w18]> select avg(salary) from employees where department_id = employee_id;
++-------------+
+| avg(salary) |
++-------------+
+|        NULL |
++-------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select avg(salary) from employees where department_id = employees.department_id;
++-------------+
+| avg(salary) |
++-------------+
+| 6461.682243 |
++-------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select employee_id,first_name from employees AS A WHERE salary > (select avg(salary) from employees where department_id = A.department_id);
++-------------+------------+
+| employee_id | first_name |
++-------------+------------+
+|         100 | Steven     |
+|         103 | Alexander  |
+|         104 | Bruce      |
+|         108 | Nancy      |
+|         109 | Daniel     |
+|         114 | Den        |
+|         120 | Matthew    |
+|         121 | Adam       |
+|         122 | Payam      |
+|         123 | Shanta     |
+|         124 | Kevin      |
+|         137 | Renske     |
+|         141 | Trenna     |
+|         145 | John       |
+|         146 | Karen      |
+|         147 | Alberto    |
+|         148 | Gerald     |
+|         149 | Eleni      |
+|         150 | Peter      |
+|         151 | David      |
+|         152 | Peter      |
+|         156 | Janette    |
+|         157 | Patrick    |
+|         158 | Allan      |
+|         162 | Clara      |
+|         163 | Danielle   |
+|         168 | Lisa       |
+|         169 | Harrison   |
+|         170 | Tayler     |
+|         174 | Ellen      |
+|         184 | Nandita    |
+|         185 | Alexis     |
+|         188 | Kelly      |
+|         189 | Jennifer   |
+|         192 | Sarah      |
+|         193 | Britney    |
+|         201 | Michael    |
+|         205 | Shelley    |
++-------------+------------+
+38 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select employee_id,first_name,salary from employees AS A WHERE salary > (select avg(salary) from employees where department_id = A.department_id);
++-------------+------------+----------+
+| employee_id | first_name | salary   |
++-------------+------------+----------+
+|         100 | Steven     | 24000.00 |
+|         103 | Alexander  |  9000.00 |
+|         104 | Bruce      |  6000.00 |
+|         108 | Nancy      | 12000.00 |
+|         109 | Daniel     |  9000.00 |
+|         114 | Den        | 11000.00 |
+|         120 | Matthew    |  8000.00 |
+|         121 | Adam       |  8200.00 |
+|         122 | Payam      |  7900.00 |
+|         123 | Shanta     |  6500.00 |
+|         124 | Kevin      |  5800.00 |
+|         137 | Renske     |  3600.00 |
+|         141 | Trenna     |  3500.00 |
+|         145 | John       | 14000.00 |
+|         146 | Karen      | 13500.00 |
+|         147 | Alberto    | 12000.00 |
+|         148 | Gerald     | 11000.00 |
+|         149 | Eleni      | 10500.00 |
+|         150 | Peter      | 10000.00 |
+|         151 | David      |  9500.00 |
+|         152 | Peter      |  9000.00 |
+|         156 | Janette    | 10000.00 |
+|         157 | Patrick    |  9500.00 |
+|         158 | Allan      |  9000.00 |
+|         162 | Clara      | 10500.00 |
+|         163 | Danielle   |  9500.00 |
+|         168 | Lisa       | 11500.00 |
+|         169 | Harrison   | 10000.00 |
+|         170 | Tayler     |  9600.00 |
+|         174 | Ellen      | 11000.00 |
+|         184 | Nandita    |  4200.00 |
+|         185 | Alexis     |  4100.00 |
+|         188 | Kelly      |  3800.00 |
+|         189 | Jennifer   |  3600.00 |
+|         192 | Sarah      |  4000.00 |
+|         193 | Britney    |  3900.00 |
+|         201 | Michael    | 13000.00 |
+|         205 | Shelley    | 12000.00 |
++-------------+------------+----------+
+38 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select employee_id,first_name,last_name,salary from employees AS A WHERE salary < (select min(salary) from employees where department_id = A.department_id);
+Empty set (0.00 sec)
+
+MariaDB [csd2204w18]> select employee_id,first_name,last_name,salary from employees AS A WHERE salary IN (select min(salary) from employees where department_id = A.department_id);
++-------------+------------+------------+----------+
+| employee_id | first_name | last_name  | salary   |
++-------------+------------+------------+----------+
+|         101 | Neena      | Kochhar    | 17000.00 |
+|         102 | Lex        | De Haan    | 17000.00 |
+|         107 | Diana      | Lorentz    |  4200.00 |
+|         113 | Luis       | Popp       |  6900.00 |
+|         119 | Karen      | Colmenares |  2500.00 |
+|         132 | TJ         | Olson      |  2100.00 |
+|         173 | Sundita    | Kumar      |  6100.00 |
+|         178 | Kimberely  | Grant      |  7000.00 |
+|         200 | Jennifer   | Whalen     |  4400.00 |
+|         202 | Pat        | Fay        |  6000.00 |
+|         203 | Susan      | Mavris     |  6500.00 |
+|         204 | Hermann    | Baer       | 10000.00 |
+|         206 | William    | Gietz      |  8300.00 |
++-------------+------------+------------+----------+
+13 rows in set (0.02 sec)
+
+MariaDB [csd2204w18]> select employee_id,first_name,last_name,salary from employees AS A WHERE salary < (select min(salary) from employees where department_id <> A.department_id);
++-------------+------------+------------+---------+
+| employee_id | first_name | last_name  | salary  |
++-------------+------------+------------+---------+
+|         127 | James      | Landry     | 2400.00 |
+|         128 | Steven     | Markle     | 2200.00 |
+|         132 | TJ         | Olson      | 2100.00 |
+|         135 | Ki         | Gee        | 2400.00 |
+|         136 | Hazel      | Philtanker | 2200.00 |
++-------------+------------+------------+---------+
+5 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from departments;
++---------------+----------------------+------------+-------------+
+| DEPARTMENT_ID | DEPARTMENT_NAME      | MANAGER_ID | LOCATION_ID |
++---------------+----------------------+------------+-------------+
+|            10 | Administration       |        200 |        1700 |
+|            20 | Marketing            |        201 |        1800 |
+|            30 | Purchasing           |        114 |        1700 |
+|            40 | Human Resources      |        203 |        2400 |
+|            50 | Shipping             |        121 |        1500 |
+|            60 | IT                   |        103 |        1400 |
+|            70 | Public Relations     |        204 |        2700 |
+|            80 | Sales                |        145 |        2500 |
+|            90 | Executive            |        100 |        1700 |
+|           100 | Finance              |        108 |        1700 |
+|           110 | Accounting           |        205 |        1700 |
+|           120 | Treasury             |          0 |        1700 |
+|           130 | Corporate Tax        |          0 |        1700 |
+|           140 | Control And Credit   |          0 |        1700 |
+|           150 | Shareholder Services |          0 |        1700 |
+|           160 | Benefits             |          0 |        1700 |
+|           170 | Manufacturing        |          0 |        1700 |
+|           180 | Construction         |          0 |        1700 |
+|           190 | Contracting          |          0 |        1700 |
+|           200 | Operations           |          0 |        1700 |
+|           210 | IT Support           |          0 |        1700 |
+|           220 | NOC                  |          0 |        1700 |
+|           230 | IT Helpdesk          |          0 |        1700 |
+|           240 | Government Sales     |          0 |        1700 |
+|           250 | Retail Sales         |          0 |        1700 |
+|           260 | Recruiting           |          0 |        1700 |
+|           270 | Payroll              |          0 |        1700 |
++---------------+----------------------+------------+-------------+
+27 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from jobs;
++------------+---------------------------------+------------+------------+
+| JOB_ID     | JOB_TITLE                       | MIN_SALARY | MAX_SALARY |
++------------+---------------------------------+------------+------------+
+| AD_PRES    | President                       |      20000 |      40000 |
+| AD_VP      | Administration Vice President   |      15000 |      30000 |
+| AD_ASST    | Administration Assistant        |       3000 |       6000 |
+| FI_MGR     | Finance Manager                 |       8200 |      16000 |
+| FI_ACCOUNT | Accountant                      |       4200 |       9000 |
+| AC_MGR     | Accounting Manager              |       8200 |      16000 |
+| AC_ACCOUNT | Public Accountant               |       4200 |       9000 |
+| SA_MAN     | Sales Manager                   |      10000 |      20000 |
+| SA_REP     | Sales Representative            |       6000 |      12000 |
+| PU_MAN     | Purchasing Manager              |       8000 |      15000 |
+| PU_CLERK   | Purchasing Clerk                |       2500 |       5500 |
+| ST_MAN     | Stock Manager                   |       5500 |       8500 |
+| ST_CLERK   | Stock Clerk                     |       2000 |       5000 |
+| SH_CLERK   | Shipping Clerk                  |       2500 |       5500 |
+| IT_PROG    | Programmer                      |       4000 |      10000 |
+| MK_MAN     | Marketing Manager               |       9000 |      15000 |
+| MK_REP     | Marketing Representative        |       4000 |       9000 |
+| HR_REP     | Human Resources Representative  |       4000 |       9000 |
+| PR_REP     | Public Relations Representative |       4500 |      10500 |
++------------+---------------------------------+------------+------------+
+19 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> show tables;
++----------------------+
+| Tables_in_csd2204w18 |
++----------------------+
+| animals              |
+| countries            |
+| departments          |
+| employees            |
+| job_history          |
+| jobs                 |
+| locations            |
+| manu                 |
+| pet                  |
+| products             |
+| regions              |
++----------------------+
+11 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from locations;
++-------------+---------------------------+--------------+---------------------+-------------------+------------+
+| LOCATION_ID | STREET_ADDRESS            | POSTAL_CODE  | CITY                | STATE_PROVINCE    | COUNTRY_ID |
++-------------+---------------------------+--------------+---------------------+-------------------+------------+
+|        1000 | 1297 Via Cola di Rie      | 989          | Roma                |                   | IT         |
+|        1100 | 93091 Calle della Testa   | 10934        | Venice              |                   | IT         |
+|        1200 | 2017 Shinjuku-ku          | 1689         | Tokyo               | Tokyo Prefecture  | JP         |
+|        1300 | 9450 Kamiya-cho           | 6823         | Hiroshima           |                   | JP         |
+|        1400 | 2014 Jabberwocky Rd       | 26192        | Southlake           | Texas             | US         |
+|        1500 | 2011 Interiors Blvd       | 99236        | South San Francisco | California        | US         |
+|        1600 | 2007 Zagora St            | 50090        | South Brunswick     | New Jersey        | US         |
+|        1700 | 2004 Charade Rd           | 98199        | Seattle             | Washington        | US         |
+|        1800 | 147 Spadina Ave           | M5V 2L7      | Toronto             | Ontario           | CA         |
+|        1900 | 6092 Boxwood St           | YSW 9T2      | Whitehorse          | Yukon             | CA         |
+|        2000 | 40-5-12 Laogianggen       | 190518       | Beijing             |                   | CN         |
+|        2100 | 1298 Vileparle (E)        | 490231       | Bombay              | Maharashtra       | IN         |
+|        2200 | 12-98 Victoria Street     | 2901         | Sydney              | New South Wales   | AU         |
+|        2300 | 198 Clementi North        | 540198       | Singapore           |                   | SG         |
+|        2400 | 8204 Arthur St            |              | London              |                   | UK         |
+|        2500 | "Magdalen Centre          |  The Oxford  | OX9 9ZB             | Oxford            | Ox         |
+|        2600 | 9702 Chester Road         | 9629850293   | Stretford           | Manchester        | UK         |
+|        2700 | Schwanthalerstr. 7031     | 80925        | Munich              | Bavaria           | DE         |
+|        2800 | Rua Frei Caneca 1360      | 01307-002    | Sao Paulo           | Sao Paulo         | BR         |
+|        2900 | 20 Rue des Corps-Saints   | 1730         | Geneva              | Geneve            | CH         |
+|        3000 | Murtenstrasse 921         | 3095         | Bern                | BE                | CH         |
+|        3100 | Pieter Breughelstraat 837 | 3029SK       | Utrecht             | Utrecht           | NL         |
+|        3200 | Mariano Escobedo 9991     | 11932        | Mexico City         | "Distrito Federal | "          |
++-------------+---------------------------+--------------+---------------------+-------------------+------------+
+23 rows in set, 3 warnings (0.04 sec)
+
+MariaDB [csd2204w18]> select location_id from locations where country_id = 'CA';  
++-------------+
+| location_id |
++-------------+
+|        1800 |
+|        1900 |
++-------------+
+2 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> desc employees;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| EMPLOYEE_ID    | decimal(6,0) | NO   | PRI | 0       |       |
+| FIRST_NAME     | varchar(20)  | YES  |     | NULL    |       |
+| LAST_NAME      | varchar(25)  | NO   | MUL | NULL    |       |
+| EMAIL          | varchar(25)  | NO   | UNI | NULL    |       |
+| PHONE_NUMBER   | varchar(20)  | YES  |     | NULL    |       |
+| HIRE_DATE      | date         | NO   |     | NULL    |       |
+| JOB_ID         | varchar(10)  | NO   | MUL | NULL    |       |
+| SALARY         | decimal(8,2) | YES  |     | NULL    |       |
+| COMMISSION_PCT | decimal(2,2) | YES  |     | NULL    |       |
+| MANAGER_ID     | decimal(6,0) | YES  | MUL | NULL    |       |
+| DEPARTMENT_ID  | decimal(4,0) | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+11 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> desc locations;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| LOCATION_ID    | decimal(4,0) | NO   | PRI | 0       |       |
+| STREET_ADDRESS | varchar(40)  | YES  |     | NULL    |       |
+| POSTAL_CODE    | varchar(12)  | YES  |     | NULL    |       |
+| CITY           | varchar(30)  | NO   | MUL | NULL    |       |
+| STATE_PROVINCE | varchar(25)  | YES  | MUL | NULL    |       |
+| COUNTRY_ID     | varchar(2)   | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+6 rows in set (0.02 sec)
+
+MariaDB [csd2204w18]> select * from countries;
++------------+--------------------------+-----------+
+| COUNTRY_ID | COUNTRY_NAME             | REGION_ID |
++------------+--------------------------+-----------+
+| AR         | Argentina                |         2 |
+| AU         | Australia                |         3 |
+| BE         | Belgium                  |         1 |
+| BR         | Brazil                   |         2 |
+| CA         | Canada                   |         2 |
+| CH         | Switzerland              |         1 |
+| CN         | China                    |         3 |
+| DE         | Germany                  |         1 |
+| DK         | Denmark                  |         1 |
+| EG         | Egypt                    |         4 |
+| FR         | France                   |         1 |
+| HK         | HongKong                 |         3 |
+| IL         | Israel                   |         4 |
+| IN         | India                    |         3 |
+| IT         | Italy                    |         1 |
+| JP         | Japan                    |         3 |
+| KW         | Kuwait                   |         4 |
+| MX         | Mexico                   |         2 |
+| NG         | Nigeria                  |         4 |
+| NL         | Netherlands              |         1 |
+| SG         | Singapore                |         3 |
+| UK         | United Kingdom           |         1 |
+| US         | United States of America |         2 |
+| ZM         | Zambia                   |         4 |
+| ZW         | Zimbabwe                 |         4 |
++------------+--------------------------+-----------+
+25 rows in set, 3 warnings (0.11 sec)
+
+MariaDB [csd2204w18]> desc employees;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| EMPLOYEE_ID    | decimal(6,0) | NO   | PRI | 0       |       |
+| FIRST_NAME     | varchar(20)  | YES  |     | NULL    |       |
+| LAST_NAME      | varchar(25)  | NO   | MUL | NULL    |       |
+| EMAIL          | varchar(25)  | NO   | UNI | NULL    |       |
+| PHONE_NUMBER   | varchar(20)  | YES  |     | NULL    |       |
+| HIRE_DATE      | date         | NO   |     | NULL    |       |
+| JOB_ID         | varchar(10)  | NO   | MUL | NULL    |       |
+| SALARY         | decimal(8,2) | YES  |     | NULL    |       |
+| COMMISSION_PCT | decimal(2,2) | YES  |     | NULL    |       |
+| MANAGER_ID     | decimal(6,0) | YES  | MUL | NULL    |       |
+| DEPARTMENT_ID  | decimal(4,0) | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+11 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> desc locations;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| LOCATION_ID    | decimal(4,0) | NO   | PRI | 0       |       |
+| STREET_ADDRESS | varchar(40)  | YES  |     | NULL    |       |
+| POSTAL_CODE    | varchar(12)  | YES  |     | NULL    |       |
+| CITY           | varchar(30)  | NO   | MUL | NULL    |       |
+| STATE_PROVINCE | varchar(25)  | YES  | MUL | NULL    |       |
+| COUNTRY_ID     | varchar(2)   | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> desc departments;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| DEPARTMENT_ID   | decimal(4,0) | NO   | PRI | 0       |       |
+| DEPARTMENT_NAME | varchar(30)  | NO   |     | NULL    |       |
+| MANAGER_ID      | decimal(6,0) | YES  | MUL | NULL    |       |
+| LOCATION_ID     | decimal(4,0) | YES  | MUL | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> select department_id from departments where department_id IN (select country_id from locations where departments.location_id = locations.location_id);  
+Empty set, 46 warnings (0.00 sec)
+
+MariaDB [csd2204w18]> select department_id from departments WHERE location_id IN (select location_id from locations WHERE country_id IN (select country_id from countries WHERE country_name LIKE 'canada') );  
++---------------+
+| department_id |
++---------------+
+|            20 |
++---------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from location where country_id like 'CA';
+ERROR 1146 (42S02): Table 'csd2204w18.location' doesn't exist
+MariaDB [csd2204w18]> select * from locations where country_id like 'CA';
++-------------+-----------------+-------------+------------+----------------+------------+
+| LOCATION_ID | STREET_ADDRESS  | POSTAL_CODE | CITY       | STATE_PROVINCE | COUNTRY_ID |
++-------------+-----------------+-------------+------------+----------------+------------+
+|        1800 | 147 Spadina Ave | M5V 2L7     | Toronto    | Ontario        | CA         |
+|        1900 | 6092 Boxwood St | YSW 9T2     | Whitehorse | Yukon          | CA         |
++-------------+-----------------+-------------+------------+----------------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select department_id from departments where location_id IN (select location_id from locations where country_id = 'CA');
++---------------+
+| department_id |
++---------------+
+|            20 |
++---------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select department_id from departments where location_id IN (select location_id from locations where country_id = 'CA');
++---------------+
+| department_id |
++---------------+
+|            20 |
++---------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select employee_id,first_name,salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations where country_id = 'CA'));
++-------------+------------+----------+
+| employee_id | first_name | salary   |
++-------------+------------+----------+
+|         201 | Michael    | 13000.00 |
+|         202 | Pat        |  6000.00 |
++-------------+------------+----------+
+2 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select employee_id,first_name,salary from employees where salary < (select MIN(salary) from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations where country_id = 'CA')));
++-------------+------------+---------+
+| employee_id | first_name | salary  |
++-------------+------------+---------+
+|         105 | David      | 4800.00 |
+|         106 | Valli      | 4800.00 |
+|         107 | Diana      | 4200.00 |
+|         115 | Alexander  | 3100.00 |
+|         116 | Shelli     | 2900.00 |
+|         117 | Sigal      | 2800.00 |
+|         118 | Guy        | 2600.00 |
+|         119 | Karen      | 2500.00 |
+|         124 | Kevin      | 5800.00 |
+|         125 | Julia      | 3200.00 |
+|         126 | Irene      | 2700.00 |
+|         127 | James      | 2400.00 |
+|         128 | Steven     | 2200.00 |
+|         129 | Laura      | 3300.00 |
+|         130 | Mozhe      | 2800.00 |
+|         131 | James      | 2500.00 |
+|         132 | TJ         | 2100.00 |
+|         133 | Jason      | 3300.00 |
+|         134 | Michael    | 2900.00 |
+|         135 | Ki         | 2400.00 |
+|         136 | Hazel      | 2200.00 |
+|         137 | Renske     | 3600.00 |
+|         138 | Stephen    | 3200.00 |
+|         139 | John       | 2700.00 |
+|         140 | Joshua     | 2500.00 |
+|         141 | Trenna     | 3500.00 |
+|         142 | Curtis     | 3100.00 |
+|         143 | Randall    | 2600.00 |
+|         144 | Peter      | 2500.00 |
+|         180 | Winston    | 3200.00 |
+|         181 | Jean       | 3100.00 |
+|         182 | Martha     | 2500.00 |
+|         183 | Girard     | 2800.00 |
+|         184 | Nandita    | 4200.00 |
+|         185 | Alexis     | 4100.00 |
+|         186 | Julia      | 3400.00 |
+|         187 | Anthony    | 3000.00 |
+|         188 | Kelly      | 3800.00 |
+|         189 | Jennifer   | 3600.00 |
+|         190 | Timothy    | 2900.00 |
+|         191 | Randall    | 2500.00 |
+|         192 | Sarah      | 4000.00 |
+|         193 | Britney    | 3900.00 |
+|         194 | Samuel     | 3200.00 |
+|         195 | Vance      | 2800.00 |
+|         196 | Alana      | 3100.00 |
+|         197 | Kevin      | 3000.00 |
+|         198 | Donald     | 2600.00 |
+|         199 | Douglas    | 2600.00 |
+|         200 | Jennifer   | 4400.00 |
++-------------+------------+---------+
+50 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from  countries;
++------------+--------------------------+-----------+
+| COUNTRY_ID | COUNTRY_NAME             | REGION_ID |
++------------+--------------------------+-----------+
+| AR         | Argentina                |         2 |
+| AU         | Australia                |         3 |
+| BE         | Belgium                  |         1 |
+| BR         | Brazil                   |         2 |
+| CA         | Canada                   |         2 |
+| CH         | Switzerland              |         1 |
+| CN         | China                    |         3 |
+| DE         | Germany                  |         1 |
+| DK         | Denmark                  |         1 |
+| EG         | Egypt                    |         4 |
+| FR         | France                   |         1 |
+| HK         | HongKong                 |         3 |
+| IL         | Israel                   |         4 |
+| IN         | India                    |         3 |
+| IT         | Italy                    |         1 |
+| JP         | Japan                    |         3 |
+| KW         | Kuwait                   |         4 |
+| MX         | Mexico                   |         2 |
+| NG         | Nigeria                  |         4 |
+| NL         | Netherlands              |         1 |
+| SG         | Singapore                |         3 |
+| UK         | United Kingdom           |         1 |
+| US         | United States of America |         2 |
+| ZM         | Zambia                   |         4 |
+| ZW         | Zimbabwe                 |         4 |
++------------+--------------------------+-----------+
+25 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select department_id from departments where location_id IN (select location_id from locations where country_id = 'US');
++---------------+
+| department_id |
++---------------+
+|            60 |
+|            50 |
+|            10 |
+|            30 |
+|            90 |
+|           100 |
+|           110 |
+|           120 |
+|           130 |
+|           140 |
+|           150 |
+|           160 |
+|           170 |
+|           180 |
+|           190 |
+|           200 |
+|           210 |
+|           220 |
+|           230 |
+|           240 |
+|           250 |
+|           260 |
+|           270 |
++---------------+
+23 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select first_name,last_name from employees where manager_id <> 0 AND department_id IN (select department_id from departments where location_id IN (select location_id from locations where country_id='US'));;  
++-------------+-------------+
+| first_name  | last_name   |
++-------------+-------------+
+| Alexander   | Hunold      |
+| Bruce       | Ernst       |
+| David       | Austin      |
+| Valli       | Pataballa   |
+| Diana       | Lorentz     |
+| Matthew     | Weiss       |
+| Adam        | Fripp       |
+| Payam       | Kaufling    |
+| Shanta      | Vollman     |
+| Kevin       | Mourgos     |
+| Julia       | Nayer       |
+| Irene       | Mikkilineni |
+| James       | Landry      |
+| Steven      | Markle      |
+| Laura       | Bissot      |
+| Mozhe       | Atkinson    |
+| James       | Marlow      |
+| TJ          | Olson       |
+| Jason       | Mallin      |
+| Michael     | Rogers      |
+| Ki          | Gee         |
+| Hazel       | Philtanker  |
+| Renske      | Ladwig      |
+| Stephen     | Stiles      |
+| John        | Seo         |
+| Joshua      | Patel       |
+| Trenna      | Rajs        |
+| Curtis      | Davies      |
+| Randall     | Matos       |
+| Peter       | Vargas      |
+| Winston     | Taylor      |
+| Jean        | Fleaur      |
+| Martha      | Sullivan    |
+| Girard      | Geoni       |
+| Nandita     | Sarchand    |
+| Alexis      | Bull        |
+| Julia       | Dellinger   |
+| Anthony     | Cabrio      |
+| Kelly       | Chung       |
+| Jennifer    | Dilly       |
+| Timothy     | Gates       |
+| Randall     | Perkins     |
+| Sarah       | Bell        |
+| Britney     | Everett     |
+| Samuel      | McCain      |
+| Vance       | Jones       |
+| Alana       | Walsh       |
+| Kevin       | Feeney      |
+| Donald      | OConnell    |
+| Douglas     | Grant       |
+| Jennifer    | Whalen      |
+| Den         | Raphaely    |
+| Alexander   | Khoo        |
+| Shelli      | Baida       |
+| Sigal       | Tobias      |
+| Guy         | Himuro      |
+| Karen       | Colmenares  |
+| Neena       | Kochhar     |
+| Lex         | De Haan     |
+| Nancy       | Greenberg   |
+| Daniel      | Faviet      |
+| John        | Chen        |
+| Ismael      | Sciarra     |
+| Jose Manuel | Urman       |
+| Luis        | Popp        |
+| Shelley     | Higgins     |
+| William     | Gietz       |
++-------------+-------------+
+67 rows in set (0.00 sec)
+
+ERROR: No query specified
+
+MariaDB [csd2204w18]> 	select  employee_id,manager_id from employees where manager_id IN (select distinct(manager_id) from employees); 
++-------------+------------+
+| employee_id | manager_id |
++-------------+------------+
+|         100 |          0 |
+|         101 |        100 |
+|         102 |        100 |
+|         103 |        102 |
+|         104 |        103 |
+|         105 |        103 |
+|         106 |        103 |
+|         107 |        103 |
+|         108 |        101 |
+|         109 |        108 |
+|         110 |        108 |
+|         111 |        108 |
+|         112 |        108 |
+|         113 |        108 |
+|         114 |        100 |
+|         115 |        114 |
+|         116 |        114 |
+|         117 |        114 |
+|         118 |        114 |
+|         119 |        114 |
+|         120 |        100 |
+|         121 |        100 |
+|         122 |        100 |
+|         123 |        100 |
+|         124 |        100 |
+|         125 |        120 |
+|         126 |        120 |
+|         127 |        120 |
+|         128 |        120 |
+|         129 |        121 |
+|         130 |        121 |
+|         131 |        121 |
+|         132 |        121 |
+|         133 |        122 |
+|         134 |        122 |
+|         135 |        122 |
+|         136 |        122 |
+|         137 |        123 |
+|         138 |        123 |
+|         139 |        123 |
+|         140 |        123 |
+|         141 |        124 |
+|         142 |        124 |
+|         143 |        124 |
+|         144 |        124 |
+|         145 |        100 |
+|         146 |        100 |
+|         147 |        100 |
+|         148 |        100 |
+|         149 |        100 |
+|         150 |        145 |
+|         151 |        145 |
+|         152 |        145 |
+|         153 |        145 |
+|         154 |        145 |
+|         155 |        145 |
+|         156 |        146 |
+|         157 |        146 |
+|         158 |        146 |
+|         159 |        146 |
+|         160 |        146 |
+|         161 |        146 |
+|         162 |        147 |
+|         163 |        147 |
+|         164 |        147 |
+|         165 |        147 |
+|         166 |        147 |
+|         167 |        147 |
+|         168 |        148 |
+|         169 |        148 |
+|         170 |        148 |
+|         171 |        148 |
+|         172 |        148 |
+|         173 |        148 |
+|         174 |        149 |
+|         175 |        149 |
+|         176 |        149 |
+|         177 |        149 |
+|         178 |        149 |
+|         179 |        149 |
+|         180 |        120 |
+|         181 |        120 |
+|         182 |        120 |
+|         183 |        120 |
+|         184 |        121 |
+|         185 |        121 |
+|         186 |        121 |
+|         187 |        121 |
+|         188 |        122 |
+|         189 |        122 |
+|         190 |        122 |
+|         191 |        122 |
+|         192 |        123 |
+|         193 |        123 |
+|         194 |        123 |
+|         195 |        123 |
+|         196 |        124 |
+|         197 |        124 |
+|         198 |        124 |
+|         199 |        124 |
+|         200 |        101 |
+|         201 |        100 |
+|         202 |        201 |
+|         203 |        101 |
+|         204 |        101 |
+|         205 |        101 |
+|         206 |        205 |
++-------------+------------+
+107 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select first_name,last_name from employees where manager_id <> 0 AND department_id IN (select department_id from departments where location_id IN (select location_id from locations where country_id='US'));
++-------------+-------------+
+| first_name  | last_name   |
++-------------+-------------+
+| Alexander   | Hunold      |
+| Bruce       | Ernst       |
+| David       | Austin      |
+| Valli       | Pataballa   |
+| Diana       | Lorentz     |
+| Matthew     | Weiss       |
+| Adam        | Fripp       |
+| Payam       | Kaufling    |
+| Shanta      | Vollman     |
+| Kevin       | Mourgos     |
+| Julia       | Nayer       |
+| Irene       | Mikkilineni |
+| James       | Landry      |
+| Steven      | Markle      |
+| Laura       | Bissot      |
+| Mozhe       | Atkinson    |
+| James       | Marlow      |
+| TJ          | Olson       |
+| Jason       | Mallin      |
+| Michael     | Rogers      |
+| Ki          | Gee         |
+| Hazel       | Philtanker  |
+| Renske      | Ladwig      |
+| Stephen     | Stiles      |
+| John        | Seo         |
+| Joshua      | Patel       |
+| Trenna      | Rajs        |
+| Curtis      | Davies      |
+| Randall     | Matos       |
+| Peter       | Vargas      |
+| Winston     | Taylor      |
+| Jean        | Fleaur      |
+| Martha      | Sullivan    |
+| Girard      | Geoni       |
+| Nandita     | Sarchand    |
+| Alexis      | Bull        |
+| Julia       | Dellinger   |
+| Anthony     | Cabrio      |
+| Kelly       | Chung       |
+| Jennifer    | Dilly       |
+| Timothy     | Gates       |
+| Randall     | Perkins     |
+| Sarah       | Bell        |
+| Britney     | Everett     |
+| Samuel      | McCain      |
+| Vance       | Jones       |
+| Alana       | Walsh       |
+| Kevin       | Feeney      |
+| Donald      | OConnell    |
+| Douglas     | Grant       |
+| Jennifer    | Whalen      |
+| Den         | Raphaely    |
+| Alexander   | Khoo        |
+| Shelli      | Baida       |
+| Sigal       | Tobias      |
+| Guy         | Himuro      |
+| Karen       | Colmenares  |
+| Neena       | Kochhar     |
+| Lex         | De Haan     |
+| Nancy       | Greenberg   |
+| Daniel      | Faviet      |
+| John        | Chen        |
+| Ismael      | Sciarra     |
+| Jose Manuel | Urman       |
+| Luis        | Popp        |
+| Shelley     | Higgins     |
+| William     | Gietz       |
++-------------+-------------+
+67 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> 	select first_name,last_name from employees where manager_id <> 0 AND department_id IN (select department_id from departments where location_id IN (select location_id from locations where country_id='US')select  employee_id,manager_id from employees where manager_id IN (select distinct(manager_id) from employees); 
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'select  employee_id,manager_id from employees where manager_id IN (select distin' at line 1
+MariaDB [csd2204w18]>  select  employee_id,manager_id from employees where manager_id IN (select distinct(manager_id) from employees);
++-------------+------------+
+| employee_id | manager_id |
++-------------+------------+
+|         100 |          0 |
+|         101 |        100 |
+|         102 |        100 |
+|         103 |        102 |
+|         104 |        103 |
+|         105 |        103 |
+|         106 |        103 |
+|         107 |        103 |
+|         108 |        101 |
+|         109 |        108 |
+|         110 |        108 |
+|         111 |        108 |
+|         112 |        108 |
+|         113 |        108 |
+|         114 |        100 |
+|         115 |        114 |
+|         116 |        114 |
+|         117 |        114 |
+|         118 |        114 |
+|         119 |        114 |
+|         120 |        100 |
+|         121 |        100 |
+|         122 |        100 |
+|         123 |        100 |
+|         124 |        100 |
+|         125 |        120 |
+|         126 |        120 |
+|         127 |        120 |
+|         128 |        120 |
+|         129 |        121 |
+|         130 |        121 |
+|         131 |        121 |
+|         132 |        121 |
+|         133 |        122 |
+|         134 |        122 |
+|         135 |        122 |
+|         136 |        122 |
+|         137 |        123 |
+|         138 |        123 |
+|         139 |        123 |
+|         140 |        123 |
+|         141 |        124 |
+|         142 |        124 |
+|         143 |        124 |
+|         144 |        124 |
+|         145 |        100 |
+|         146 |        100 |
+|         147 |        100 |
+|         148 |        100 |
+|         149 |        100 |
+|         150 |        145 |
+|         151 |        145 |
+|         152 |        145 |
+|         153 |        145 |
+|         154 |        145 |
+|         155 |        145 |
+|         156 |        146 |
+|         157 |        146 |
+|         158 |        146 |
+|         159 |        146 |
+|         160 |        146 |
+|         161 |        146 |
+|         162 |        147 |
+|         163 |        147 |
+|         164 |        147 |
+|         165 |        147 |
+|         166 |        147 |
+|         167 |        147 |
+|         168 |        148 |
+|         169 |        148 |
+|         170 |        148 |
+|         171 |        148 |
+|         172 |        148 |
+|         173 |        148 |
+|         174 |        149 |
+|         175 |        149 |
+|         176 |        149 |
+|         177 |        149 |
+|         178 |        149 |
+|         179 |        149 |
+|         180 |        120 |
+|         181 |        120 |
+|         182 |        120 |
+|         183 |        120 |
+|         184 |        121 |
+|         185 |        121 |
+|         186 |        121 |
+|         187 |        121 |
+|         188 |        122 |
+|         189 |        122 |
+|         190 |        122 |
+|         191 |        122 |
+|         192 |        123 |
+|         193 |        123 |
+|         194 |        123 |
+|         195 |        123 |
+|         196 |        124 |
+|         197 |        124 |
+|         198 |        124 |
+|         199 |        124 |
+|         200 |        101 |
+|         201 |        100 |
+|         202 |        201 |
+|         203 |        101 |
+|         204 |        101 |
+|         205 |        101 |
+|         206 |        205 |
++-------------+------------+
+107 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select department_id from departments where location_id IN (select location_id from locations where country_id = 'US');
++---------------+
+| department_id |
++---------------+
+|            60 |
+|            50 |
+|            10 |
+|            30 |
+|            90 |
+|           100 |
+|           110 |
+|           120 |
+|           130 |
+|           140 |
+|           150 |
+|           160 |
+|           170 |
+|           180 |
+|           190 |
+|           200 |
+|           210 |
+|           220 |
+|           230 |
+|           240 |
+|           250 |
+|           260 |
+|           270 |
++---------------+
+23 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> desc departments;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| DEPARTMENT_ID   | decimal(4,0) | NO   | PRI | 0       |       |
+| DEPARTMENT_NAME | varchar(30)  | NO   |     | NULL    |       |
+| MANAGER_ID      | decimal(6,0) | YES  | MUL | NULL    |       |
+| LOCATION_ID     | decimal(4,0) | YES  | MUL | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> desc employees;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| EMPLOYEE_ID    | decimal(6,0) | NO   | PRI | 0       |       |
+| FIRST_NAME     | varchar(20)  | YES  |     | NULL    |       |
+| LAST_NAME      | varchar(25)  | NO   | MUL | NULL    |       |
+| EMAIL          | varchar(25)  | NO   | UNI | NULL    |       |
+| PHONE_NUMBER   | varchar(20)  | YES  |     | NULL    |       |
+| HIRE_DATE      | date         | NO   |     | NULL    |       |
+| JOB_ID         | varchar(10)  | NO   | MUL | NULL    |       |
+| SALARY         | decimal(8,2) | YES  |     | NULL    |       |
+| COMMISSION_PCT | decimal(2,2) | YES  |     | NULL    |       |
+| MANAGER_ID     | decimal(6,0) | YES  | MUL | NULL    |       |
+| DEPARTMENT_ID  | decimal(4,0) | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+11 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> select b.first_name,b.last name from employees b where not exists (select 'X' from employees a WHERE a.manager_id=b.employee_id);
+ERROR 1054 (42S22): Unknown column 'b.last' in 'field list'
+MariaDB [csd2204w18]> select b.first_name,b.last_name FROM employees b where NOT EXISTS (SELECT 'X' from employees a WHERE a.manager_id=b.employee_id );
++-------------+-------------+
+| first_name  | last_name   |
++-------------+-------------+
+| Bruce       | Ernst       |
+| David       | Austin      |
+| Valli       | Pataballa   |
+| Diana       | Lorentz     |
+| Daniel      | Faviet      |
+| John        | Chen        |
+| Ismael      | Sciarra     |
+| Jose Manuel | Urman       |
+| Luis        | Popp        |
+| Alexander   | Khoo        |
+| Shelli      | Baida       |
+| Sigal       | Tobias      |
+| Guy         | Himuro      |
+| Karen       | Colmenares  |
+| Julia       | Nayer       |
+| Irene       | Mikkilineni |
+| James       | Landry      |
+| Steven      | Markle      |
+| Laura       | Bissot      |
+| Mozhe       | Atkinson    |
+| James       | Marlow      |
+| TJ          | Olson       |
+| Jason       | Mallin      |
+| Michael     | Rogers      |
+| Ki          | Gee         |
+| Hazel       | Philtanker  |
+| Renske      | Ladwig      |
+| Stephen     | Stiles      |
+| John        | Seo         |
+| Joshua      | Patel       |
+| Trenna      | Rajs        |
+| Curtis      | Davies      |
+| Randall     | Matos       |
+| Peter       | Vargas      |
+| Peter       | Tucker      |
+| David       | Bernstein   |
+| Peter       | Hall        |
+| Christopher | Olsen       |
+| Nanette     | Cambrault   |
+| Oliver      | Tuvault     |
+| Janette     | King        |
+| Patrick     | Sully       |
+| Allan       | McEwen      |
+| Lindsey     | Smith       |
+| Louise      | Doran       |
+| Sarath      | Sewall      |
+| Clara       | Vishney     |
+| Danielle    | Greene      |
+| Mattea      | Marvins     |
+| David       | Lee         |
+| Sundar      | Ande        |
+| Amit        | Banda       |
+| Lisa        | Ozer        |
+| Harrison    | Bloom       |
+| Tayler      | Fox         |
+| William     | Smith       |
+| Elizabeth   | Bates       |
+| Sundita     | Kumar       |
+| Ellen       | Abel        |
+| Alyssa      | Hutton      |
+| Jonathon    | Taylor      |
+| Jack        | Livingston  |
+| Kimberely   | Grant       |
+| Charles     | Johnson     |
+| Winston     | Taylor      |
+| Jean        | Fleaur      |
+| Martha      | Sullivan    |
+| Girard      | Geoni       |
+| Nandita     | Sarchand    |
+| Alexis      | Bull        |
+| Julia       | Dellinger   |
+| Anthony     | Cabrio      |
+| Kelly       | Chung       |
+| Jennifer    | Dilly       |
+| Timothy     | Gates       |
+| Randall     | Perkins     |
+| Sarah       | Bell        |
+| Britney     | Everett     |
+| Samuel      | McCain      |
+| Vance       | Jones       |
+| Alana       | Walsh       |
+| Kevin       | Feeney      |
+| Donald      | OConnell    |
+| Douglas     | Grant       |
+| Jennifer    | Whalen      |
+| Pat         | Fay         |
+| Susan       | Mavris      |
+| Hermann     | Baer        |
+| William     | Gietz       |
++-------------+-------------+
+89 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select department_id from departments where location_id IN (select location_id from locations where country_id = 'US');
++---------------+
+| department_id |
++---------------+
+|            60 |
+|            50 |
+|            10 |
+|            30 |
+|            90 |
+|           100 |
+|           110 |
+|           120 |
+|           130 |
+|           140 |
+|           150 |
+|           160 |
+|           170 |
+|           180 |
+|           190 |
+|           200 |
+|           210 |
+|           220 |
+|           230 |
+|           240 |
+|           250 |
+|           260 |
+|           270 |
++---------------+
+23 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select b.first_name,b.last name from employees b where not exists (select 'X' from employees a WHERE a.manager_id=b.employee_id) AND  select department_id from departments where location_id IN (select location_id from locations where country_id = 'US');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'select department_id from departments where location_id IN (select location_id f' at line 1
+MariaDB [csd2204w18]> select b.first_name,b.last name from employees b where not exists (select 'X' from employees a WHERE a.manager_id=b.employee_id) AND department_id from departments where location_id IN (select location_id from locations where country_id = 'US');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from departments where location_id IN (select location_id from locations where c' at line 1
+MariaDB [csd2204w18]> select department_id from departments where location_id IN (select location_id from locations where country_id = 'US');
++---------------+
+| department_id |
++---------------+
+|            60 |
+|            50 |
+|            10 |
+|            30 |
+|            90 |
+|           100 |
+|           110 |
+|           120 |
+|           130 |
+|           140 |
+|           150 |
+|           160 |
+|           170 |
+|           180 |
+|           190 |
+|           200 |
+|           210 |
+|           220 |
+|           230 |
+|           240 |
+|           250 |
+|           260 |
+|           270 |
++---------------+
+23 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from departments;
++---------------+----------------------+------------+-------------+
+| DEPARTMENT_ID | DEPARTMENT_NAME      | MANAGER_ID | LOCATION_ID |
++---------------+----------------------+------------+-------------+
+|            10 | Administration       |        200 |        1700 |
+|            20 | Marketing            |        201 |        1800 |
+|            30 | Purchasing           |        114 |        1700 |
+|            40 | Human Resources      |        203 |        2400 |
+|            50 | Shipping             |        121 |        1500 |
+|            60 | IT                   |        103 |        1400 |
+|            70 | Public Relations     |        204 |        2700 |
+|            80 | Sales                |        145 |        2500 |
+|            90 | Executive            |        100 |        1700 |
+|           100 | Finance              |        108 |        1700 |
+|           110 | Accounting           |        205 |        1700 |
+|           120 | Treasury             |          0 |        1700 |
+|           130 | Corporate Tax        |          0 |        1700 |
+|           140 | Control And Credit   |          0 |        1700 |
+|           150 | Shareholder Services |          0 |        1700 |
+|           160 | Benefits             |          0 |        1700 |
+|           170 | Manufacturing        |          0 |        1700 |
+|           180 | Construction         |          0 |        1700 |
+|           190 | Contracting          |          0 |        1700 |
+|           200 | Operations           |          0 |        1700 |
+|           210 | IT Support           |          0 |        1700 |
+|           220 | NOC                  |          0 |        1700 |
+|           230 | IT Helpdesk          |          0 |        1700 |
+|           240 | Government Sales     |          0 |        1700 |
+|           250 | Retail Sales         |          0 |        1700 |
+|           260 | Recruiting           |          0 |        1700 |
+|           270 | Payroll              |          0 |        1700 |
++---------------+----------------------+------------+-------------+
+27 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select country_id from countries;
++------------+
+| country_id |
++------------+
+| AR         |
+| AU         |
+| BE         |
+| BR         |
+| CA         |
+| CH         |
+| CN         |
+| DE         |
+| DK         |
+| EG         |
+| FR         |
+| HK         |
+| IL         |
+| IN         |
+| IT         |
+| JP         |
+| KW         |
+| MX         |
+| NG         |
+| NL         |
+| SG         |
+| UK         |
+| US         |
+| ZM         |
+| ZW         |
++------------+
+25 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from countries;
++------------+--------------------------+-----------+
+| COUNTRY_ID | COUNTRY_NAME             | REGION_ID |
++------------+--------------------------+-----------+
+| AR         | Argentina                |         2 |
+| AU         | Australia                |         3 |
+| BE         | Belgium                  |         1 |
+| BR         | Brazil                   |         2 |
+| CA         | Canada                   |         2 |
+| CH         | Switzerland              |         1 |
+| CN         | China                    |         3 |
+| DE         | Germany                  |         1 |
+| DK         | Denmark                  |         1 |
+| EG         | Egypt                    |         4 |
+| FR         | France                   |         1 |
+| HK         | HongKong                 |         3 |
+| IL         | Israel                   |         4 |
+| IN         | India                    |         3 |
+| IT         | Italy                    |         1 |
+| JP         | Japan                    |         3 |
+| KW         | Kuwait                   |         4 |
+| MX         | Mexico                   |         2 |
+| NG         | Nigeria                  |         4 |
+| NL         | Netherlands              |         1 |
+| SG         | Singapore                |         3 |
+| UK         | United Kingdom           |         1 |
+| US         | United States of America |         2 |
+| ZM         | Zambia                   |         4 |
+| ZW         | Zimbabwe                 |         4 |
++------------+--------------------------+-----------+
+25 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from locations
+    -> ;
++-------------+---------------------------+--------------+---------------------+-------------------+------------+
+| LOCATION_ID | STREET_ADDRESS            | POSTAL_CODE  | CITY                | STATE_PROVINCE    | COUNTRY_ID |
++-------------+---------------------------+--------------+---------------------+-------------------+------------+
+|        1000 | 1297 Via Cola di Rie      | 989          | Roma                |                   | IT         |
+|        1100 | 93091 Calle della Testa   | 10934        | Venice              |                   | IT         |
+|        1200 | 2017 Shinjuku-ku          | 1689         | Tokyo               | Tokyo Prefecture  | JP         |
+|        1300 | 9450 Kamiya-cho           | 6823         | Hiroshima           |                   | JP         |
+|        1400 | 2014 Jabberwocky Rd       | 26192        | Southlake           | Texas             | US         |
+|        1500 | 2011 Interiors Blvd       | 99236        | South San Francisco | California        | US         |
+|        1600 | 2007 Zagora St            | 50090        | South Brunswick     | New Jersey        | US         |
+|        1700 | 2004 Charade Rd           | 98199        | Seattle             | Washington        | US         |
+|        1800 | 147 Spadina Ave           | M5V 2L7      | Toronto             | Ontario           | CA         |
+|        1900 | 6092 Boxwood St           | YSW 9T2      | Whitehorse          | Yukon             | CA         |
+|        2000 | 40-5-12 Laogianggen       | 190518       | Beijing             |                   | CN         |
+|        2100 | 1298 Vileparle (E)        | 490231       | Bombay              | Maharashtra       | IN         |
+|        2200 | 12-98 Victoria Street     | 2901         | Sydney              | New South Wales   | AU         |
+|        2300 | 198 Clementi North        | 540198       | Singapore           |                   | SG         |
+|        2400 | 8204 Arthur St            |              | London              |                   | UK         |
+|        2500 | "Magdalen Centre          |  The Oxford  | OX9 9ZB             | Oxford            | Ox         |
+|        2600 | 9702 Chester Road         | 9629850293   | Stretford           | Manchester        | UK         |
+|        2700 | Schwanthalerstr. 7031     | 80925        | Munich              | Bavaria           | DE         |
+|        2800 | Rua Frei Caneca 1360      | 01307-002    | Sao Paulo           | Sao Paulo         | BR         |
+|        2900 | 20 Rue des Corps-Saints   | 1730         | Geneva              | Geneve            | CH         |
+|        3000 | Murtenstrasse 921         | 3095         | Bern                | BE                | CH         |
+|        3100 | Pieter Breughelstraat 837 | 3029SK       | Utrecht             | Utrecht           | NL         |
+|        3200 | Mariano Escobedo 9991     | 11932        | Mexico City         | "Distrito Federal | "          |
++-------------+---------------------------+--------------+---------------------+-------------------+------------+
+23 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select location_id from countries where country_id LIKE 'us'; 
+ERROR 1054 (42S22): Unknown column 'location_id' in 'field list'
+MariaDB [csd2204w18]> select location_id from locations where country_id LIKE 'us'; 
++-------------+
+| location_id |
++-------------+
+|        1400 |
+|        1500 |
+|        1600 |
+|        1700 |
++-------------+
+4 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select employee_id,salary from employees where (salary > ANY (select salary FROM employees WHERE (employee_id IN (select managaer_id FROM employees)) AND department_id IN (select department_id from departments where locaion_id(select location_id from locations where country_ ='US')))) AND employee_id NOT IN (select manager_id FROM employees);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'select location_id from locations where country_ ='US')))) AND employee_id NOT I' at line 1
+MariaDB [csd2204w18]> select employee_id,salary from employees where (salary > ANY (select salary FROM employees WHERE (employee_id IN (select managaer_id FROM employees)) AND department_id IN (select department_id from departments where locaion_id(select location_id from locations where country_ ='US')))) ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'select location_id from locations where country_ ='US'))))' at line 1
+MariaDB [csd2204w18]> select employee_id,salary from employees where (salary > ANY (select salary from employees where (employee_id IN (select manager_id from employees)) and department_id IN(select department_id from departments where location_id IN (select location_id from locations where country_id = 'US')))) AND employee_id NOT IN (select manager_if from employees);
+ERROR 1054 (42S22): Unknown column 'manager_if' in 'field list'
+MariaDB [csd2204w18]> select employee_id,salary from employees where (salary > ANY (select salary from employees where (employee_id IN (select manager_id from employees)) and department_id IN(select department_id from departments where location_id IN (select location_id from locations where country_id = 'US')))) AND employee_id NOT IN (select manager_id from employees);
++-------------+----------+
+| employee_id | salary   |
++-------------+----------+
+|         104 |  6000.00 |
+|         109 |  9000.00 |
+|         110 |  8200.00 |
+|         111 |  7700.00 |
+|         112 |  7800.00 |
+|         113 |  6900.00 |
+|         150 | 10000.00 |
+|         151 |  9500.00 |
+|         152 |  9000.00 |
+|         153 |  8000.00 |
+|         154 |  7500.00 |
+|         155 |  7000.00 |
+|         156 | 10000.00 |
+|         157 |  9500.00 |
+|         158 |  9000.00 |
+|         159 |  8000.00 |
+|         160 |  7500.00 |
+|         161 |  7000.00 |
+|         162 | 10500.00 |
+|         163 |  9500.00 |
+|         164 |  7200.00 |
+|         165 |  6800.00 |
+|         166 |  6400.00 |
+|         167 |  6200.00 |
+|         168 | 11500.00 |
+|         169 | 10000.00 |
+|         170 |  9600.00 |
+|         171 |  7400.00 |
+|         172 |  7300.00 |
+|         173 |  6100.00 |
+|         174 | 11000.00 |
+|         175 |  8800.00 |
+|         176 |  8600.00 |
+|         177 |  8400.00 |
+|         178 |  7000.00 |
+|         179 |  6200.00 |
+|         202 |  6000.00 |
+|         203 |  6500.00 |
+|         204 | 10000.00 |
+|         206 |  8300.00 |
++-------------+----------+
+40 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> SELECT DISTINCT salary FROM employees e1
+    -> WHERE 5 = (SELECT COUNT(DISTINCT salary)
+    -> FROM employees e2
+    -> WHERE e2.salary >= e1.salary);
++----------+
+| salary   |
++----------+
+| 13000.00 |
++----------+
+1 row in set (0.04 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> use csd2204
+Database changed
+MariaDB [csd2204]> select * from mall;
++----+--------------------------------+
+| id | Name                           |
++----+--------------------------------+
+|  1 | Scarborough Town Centre        |
+|  2 | Bridlewood Mall                |
+|  3 | Giant Tiger                    |
+|  4 | Malvern Town Centre            |
+|  5 | Agincourt Mall                 |
+|  6 | Spendid Chain Mall             |
+|  7 | Gerrard Square Shopping Centre |
+|  8 | Yorkdale Shopping Centre       |
+|  9 | Dufferin Mall                  |
+| 10 | CF Toronto Eaton Centre        |
+| 11 | Lawrence Square Shopping Centr |
+| 12 | Shoppers World Brampton        |
+| 13 | Trinity Common Mall            |
+| 14 | Bramalea City Centre           |
+| 15 | Group R                        |
+| 16 | Eastgate Square                |
+| 17 | Hamilton City Centre Mall      |
+| 18 | Lime Ridge Mall                |
+| 19 | CF Markville                   |
+| 20 | Pacific Mall Mgnt Off          |
+| 21 | J Town                         |
+| 22 | Markham Market                 |
+| 23 | Hopedale Mall                  |
+| 24 | Upper Oakville Shopping Centre |
+| 25 | South Oakville Centre          |
+| 26 | Five Points Mall               |
+| 27 | Oshawa Centre                  |
+| 28 | Carlingwood                    |
+| 29 | CF Rideau Centre               |
+| 30 | Westgate Shopping Centre       |
+| 31 | Intercity Shopping Centre      |
+| 32 | Arthur Street Marketplace      |
+| 33 | Devonshire Mall                |
+| 34 | Tecumseh Mall                  |
+| 35 | Sheridan Centre                |
+| 36 | Square One Shopping Centre     |
++----+--------------------------------+
+36 rows in set (0.16 sec)
+
+MariaDB [csd2204]> select * from mall_information;
++----+----------------------------------------------------+-------------+----------------------------------------------------+------------+----------------------------------------------------+---------------------+
+| id | Address                                            | City        | services                                           | Phone      | Website                                            | Working_hours       |
++----+----------------------------------------------------+-------------+----------------------------------------------------+------------+----------------------------------------------------+---------------------+
+|  1 | 300 Borough Dr, Scarborough, ON M1P 4P5            | Scarborough | Shopping Centes & Malls                            | 2147483647 | https://www.facebook.com/ShopSTC                   | 10:00 AM to 9:00 PM |
+|  2 | 2900 Warden Ave, Scarborough, ON M1W 2S8           | Scarborough | Shopping Centes & Malls                            | 2147483647 | http://bridlewoodmall.com/                         | 10:00 AM to 9:00 PM |
+|  3 | 682 Kennedy Rd, Scarborough, ON M1K 2B5            | Scarborough | Shopping Centes & Malls                            | 2147483647 | https://www.gianttiger.com/                        | 10:00 AM to 9:00 PM |
+|  4 | 31 Tapscott RD,Scarborough,ON, M1B 4Y7             | Scarborough | Shopping Centes & Malls                            | 2147483647 | NULL                                               | 10:00 AM to 9:00 PM |
+|  5 | 3850 Sheppard Avenue East, Scarborough, ON M1T 3L4 | Scarborough | Shopping Centers & Malls                           | 2147483647 | NULL                                               | 10:00 AM to 9:00 PM |
+|  6 | 4675 Steeles Ave E, Scarborough, ON M1V 0B7        | Scarborough | Shopping Centers & Malls                           | 2147483647 | NULL                                               | 10:00 AM to 9:00 PM |
+|  7 | 1000 Gerrard St E, Toronto, ON M4M 3G6             | Toronto     | Shopping Centers & Malls                           | 2147483647 | http://www.gerrardsquare.com/                      | 10:00 AM to 9:00 PM |
+|  8 | 3401 Dufferin St, Toronto, ON M6A 3A1              | Toronto     | Shopping Centers & Malls                           | 2147483647 | http://yorkdale.com/                               | 10:00 AM to 9:00 PM |
+|  9 | 900 Dufferin St, Toronto, ON M6H 4A9               | Toronto     | Shopping Centers & Malls                           | 2147483647 | http://www.dufferinmall.ca/                        | 10:00 AM to 9:00 PM |
+| 10 | 220 Yonge Street, Toronto, ON M5B 2H1              | Toronto     | Shopping Centers & Malls                           | 2147483647 | https://www.cfshops.com/toronto-eaton-centre.html? | 10:00 AM to 9:00 PM |
+| 11 | 700 Lawrence Ave W, Toronto, ON M6A 3B4            | Toronto     | Shopping Centers & Malls                           | 2147483647 | https://shoplawrencesquare.com/                    | 10:00 AM to 9:00 PM |
+| 12 | 56-499 Main St S, Brampton, ON L6Y 1N7             | Brampton    | Shopping Centres & Malls, Shopping Mall Management | 2147483647 | NULL                                               | 10:00 AM to 9:00 PM |
+| 13 | 100 Great Lakes Dr, Brampton, ON L6R 2K7           | Brampton    | Shopping Centers & Malls                           | 2147483647 | NULL                                               | 10:00 AM to 9:00 PM |
+| 14 | 25 Peel Centre Drive,Brampton ON L6T 3R5           | Toronto     | Shopping Centres & Malls, Childrens Clothing Store | 2147483647 | http://bramaleacitycentre.ca/                      | 10:00 AM to 9:00 PM |
+| 15 | 180 Sandalwood Pkwy E, Brampton, ON L6Z 1Y4        | Brampton    | Shopping centres                                   | 2147483647 | NULL                                               | 10:00 AM to 9:00 PM |
+| 16 | 75 Centennial Pkwy N, Hamilton, ON L8E 2P2         | Hamilton    | Shopping centres                                   | 2147483647 | http://www.eastgatesquare.ca/                      | 10:00 AM to 9:00 PM |
+| 17 | 77 James St N, Hamilton, ON L8R 2K3                | Hamilton    | Shopping Centres & Malls, Department Stores        | 2147483647 | http://www.hamiltoncitycentremall.com/             | 10:00 AM to 9:00 PM |
+| 18 | 999 Upper Wentworth Hamilton, Hamilton, ON L9A 4X5 | Hamilton    | Shopping Centres & Malls                           | 2147483647 | https://www.cfshops.com/lime-ridge.html            | 10:00 AM to 9:00 PM |
+| 19 | 5000 Highway 7 East, Markham, ON L3R 4M9           | Markham     | Shopping Centres & Malls, Shopping Mall Management | 2147483647 | https://www.cfshops.com/markville.html?cid=lis_mar | 10:00 AM to 9:00 PM |
+| 20 | 4300 Steeles Ave E, Markham, ON L3R 0Y5            | Markham     | Shopping centres                                   | 2147483647 | NULL                                               | 10:00 AM to 9:00 PM |
+| 21 | 3160 Steeles Ave E, Markham, ON L3R 4G9            | Markham     | Shopping centres                                   | 2147483647 | NULL                                               | 10:00 AM to 9:00 PM |
+| 22 | 1525 Denison St, Markham, ON L3R 6E5               | Markham     | Shopping Centres & Malls                           | 2147483647 | NULL                                               | 10:00 AM to 9:00 PM |
+| 23 | 1515 Rebecca St, Oakville, ON L6L 5G8              | Oakville    | Shopping Centres & Malls                           | 2147483647 | NULL                                               | 10:00 AM to 9:00 PM |
+| 24 | 1011 Upper Middle Rd E, Oakville, ON L6H 4L5       | Oakville    | Shopping Centres & Malls                           | 2147483647 | http://oakvilleshops.com/                          | 10:00 AM to 9:00 PM |
+| 25 | 1515 Rebecca St, Oakville, ON L6L 5G8              | Oakville    | Shopping Centres & Malls                           | 2147483647 | NULL                                               | 10:00 AM to 9:00 PM |
+| 26 | 285 Taunton Rd E, Oshawa, ON L1G 3V2               | Oashawa     | Shopping Centres & Malls, Shopping Mall Management | 2147483647 | http://www.fivepointsmall.ca/                      | 10:00 AM to 9:00 PM |
+| 27 | 419 King St W, Oshawa, ON L1J 2K5                  | Oashawa     | Shopping Centres & Malls                           | 2147483647 | https://www.oshawacentre.com/                      | 10:00 AM to 9:00 PM |
+| 28 |  2121 Carling Ave, Ottawa, ON K2A 1H2              | Ottawa      | Shopping Centres & Malls                           | 2147483647 | http://www.carlingwood.com/                        | 10:00 AM to 9:00 PM |
+| 29 | 50 Rideau Street, Ottawa, ON K1N 9J7               | Ottawa      | Shopping Centres & Malls                           | 2147483647 | https://www.cfshops.com/rideau-centre.html         | 10:00 AM to 9:00 PM |
+| 30 | 1309 Carling Ave, Ottawa, ON K1Z 7L3               | Ottawa      | Shopping Centres & Malls                           | 2147483647 | https://www.westgateshoppingcentre.ca/             | 10:00 AM to 9:00 PM |
+| 31 | 1000 Fort William Rd, Thunder Bay, ON P7B 6B9      | Thunder Bay | Shopping Centres & Malls                           | 2147483647 | http://www.intercityshoppingcentre.com/            | 10:00 AM to 9:00 PM |
+| 32 | 1101 Arthur St W, Thunder Bay, ON P7E 5S2          | Thunder Bay | Shopping Centres & Malls                           | 2147483647 | NULL                                               | 10:00 AM to 9:00 PM |
+| 33 | 3100 Howard Ave, Windsor, ON N8X 3Y8               | Windsor     | Shopping Centres & Malls                           | 2147483647 | http://www.devonshiremall.com/                     | 10:00 AM to 9:00 PM |
+| 34 | 7654 Tecumseh Rd E, Windsor, ON N8T 1E9            | Windsor     | Shopping Centres & Malls                           | 2147483647 | https://www.facebook.com/tecumsehmallwindsor       | 10:00 AM to 9:00 PM |
+| 35 | 2225 Erin Mills Parkway,Mississauga, ON            | Mississauga | Shopping Centres & Malls                           | 2147483647 | http://www.sheridancentre.ca/                      | 10:00 AM to 9:00 PM |
+| 36 | 100 City Centre Dr, Mississauga, ON L5B 2C9        | Mississauga | Shopping Centres & Malls                           | 2147483647 | http://shopsquareone.com/                          | 10:00 AM to 9:00 PM |
++----+----------------------------------------------------+-------------+----------------------------------------------------+------------+----------------------------------------------------+---------------------+
+36 rows in set (0.12 sec)
+
+MariaDB [csd2204]> select * from car_service;
++----+------------------------------------------------+
+| id | Name                                           |
++----+------------------------------------------------+
+|  1 | R&P Auto Services                              |
+|  2 | Nick's Auto Tech                               |
+|  3 | Mars Tire Agincourt                            |
+|  4 | Sam's Auto Tech Inc                            |
+|  5 | Latest Gen Automotive Inc                      |
+|  6 | Mastertech Automotive                          |
+|  7 | AML Auto Service                               |
+|  8 | Central Import Automotive Service Incorporated |
+|  9 | KWL Automotive Centre                          |
+| 10 | DM Auto Sales & Services                       |
+| 11 | B C Tirecraft                                  |
+| 12 | Grand Sport Auto Limited                       |
+| 13 | Revolutions Automotive                         |
+| 14 | New Tech Auto                                  |
+| 15 | Friends Auto Service                           |
+| 16 | The Bug Shop                                   |
+| 17 | Right Way Auto Sales                           |
+| 18 | Barton Radiator Works                          |
+| 19 | Kafzar Automotive                              |
+| 20 | Creighton's Service Center                     |
+| 21 | Authentic Custom Cycle & Automotive Ltd        |
+| 22 | Markham Auto Repair                            |
+| 23 | Thomson Don Auto Service 2002 Ltd              |
+| 24 | Hyperfine Autos Inc                            |
+| 25 | Autogenics Total Auto Service                  |
+| 26 | Eastside Auto Service Ltd                      |
+| 27 | Eastside Auto Service                          |
+| 28 | JNB Auto Center                                |
+| 29 | Oakville Auto Radiator                         |
+| 30 | Oakville Trailers Ltd                          |
+| 31 | Custom Exhaust And Brake                       |
+| 32 | Monroe Auto Glass                              |
+| 33 | Durham Transmission Service                    |
+| 34 | Tomlin Knight Auto Service                     |
+| 35 | Lakefront Tire & Auto Centre                   |
+| 36 | Lorelli Service Centre Ltd                     |
+| 37 | American Graffiti Automotive                   |
+| 38 | Angelo's Service                               |
+| 39 | Adria Auto Centre Inc                          |
+| 40 | L T Motors                                     |
+| 41 | Action Tire Centre                             |
+| 42 | Preferred Auto & Fleet Services                |
+| 43 | Central Auto Parts                             |
+| 44 | Garry's Automotive                             |
+| 45 | CRS Auto Centre                                |
+| 46 | Mihoren's Quick Lube & Automotive Centre       |
+| 47 | Mel's Automotive                               |
+| 48 | Fazio Auto Service                             |
+| 49 | F & J Collision Service                        |
+| 50 | Donato Auto Collision Ltd                      |
+| 51 | Right-Tech Auto Service                        |
+| 52 | Larry's Auto & Truck Repair                    |
+| 53 | Conshore Motors Ltd                            |
+| 54 | Maxwell Auto                                   |
+| 55 | Auto Air Care                                  |
++----+------------------------------------------------+
+55 rows in set (0.23 sec)
+
+MariaDB [csd2204]> select * from car_service_location;
++----+------------------------------------------------+-------------+----------------------------------------------------+------------+--------------------------------+---------------+
+| id | Address                                        | City        | Services                                           | Phone      | Website                        | Working_hours |
++----+------------------------------------------------+-------------+----------------------------------------------------+------------+--------------------------------+---------------+
+|  1 | ÿ1-752 Warden Ave,ÿScarborough,ÿONÿM1L 4A      | Scarborough | Auto Repair and Detailing Services for all makes a | 2147483647 | http://www.rpautoservice.ca/   |          0.00 |
+|  2 | ÿ1302 Ellesmere Rd,ÿScarborough,ÿONÿM1P 2X9    | Scarborough | PECIALISTS IN COLLISION & MECHANICAL SERVICES      | 2147483647 | http://www.nicksauto-tech.aaro |          0.00 |
+|  3 | 3805 Sheppard Ave E,ÿScarborough,ÿONÿM1T 3L5   | Scarborough | Auto Repair Garages,ÿCar Brake Service             | 2147483647 | https://fixmycar.ca/           |          0.00 |
+|  4 | ÿ773 Warden Ave,ÿScarborough,ÿONÿM1L 4C2       | Scarborough | Car Repair & Service,ÿAuto Repair Garages          | 2147483647 | http://samsautotoronto.com/    |          0.00 |
+|  5 | 2655 Lawrence Ave E,ÿScarborough,ÿONÿM1P 2S2   | Scarborough | Car Repair & Service,ÿVehicle Towing               | 2147483647 | http://latestgenauto.com/      |          0.00 |
+|  6 | 103 Railside Rd,ÿNorth York,ÿONÿM3A 1B2        | Toronto     | Car Repair & Service,ÿAuto Repair Garages          | 2147483647 | http://www.mastertechautomotiv |          0.00 |
+|  7 | 126 Laird Dr,ÿEast York,ÿONÿM4G 3V3            | Toronto     | Auto Repairing, Alignment, Fuel System Service, Dr | 2147483647 | http://www.amlautoservice.com/ |          0.00 |
+|  8 | 472 King St E,ÿToronto,ÿONÿM5A 1L7             | Toronto     | Advanced Diagnostic Equipment, Alignment Service   | 2147483647 | http://www.centralimport.ca/   |          0.00 |
+|  9 | 3-1405 Bloor St W,ÿToronto,ÿONÿM6P 3L4         | Toronto     | Air Conditioning Repair, Alignments, Brake Repairs | 2147483647 | http://kwlautomotivecentre.ca/ |          0.00 |
+| 10 | 1119 Castlefield Ave,ÿToronto,ÿONÿM6B 1E8      | Toronto     | Preventive Car Maintenance, Muffler Repair         | 2147483647 | NULL                           |          0.00 |
+| 11 | 1 English St,ÿBrampton,ÿONÿL6X 1L3             | Brampton    | Car Repair Service, Tires, Auto Repairs, Brakes, T | 2147483647 | http://www.bctireandautoshift. |          0.00 |
+| 12 | 15 Melanie Dr,ÿBrampton,ÿONÿL6T 4K8            | Brampton    | Preventive Car Maintenance, Muffler Repair         | 2147483647 | http://www.grandsportauto.aaro |          0.00 |
+| 13 | 1-15A Fisherman Dr,ÿBrampton,ÿONÿL7A 1B7       | Brampton    | General repairs to ALL makes and models            | 2147483647 | http://www.revolutionsauto.ca/ |          0.00 |
+| 14 | 17-21 Hale Rd,ÿBrampton,ÿONÿL6W 3J9            | Brampton    | ÿfast, affordable service you can trust, including | 2147483647 | NULL                           |          0.00 |
+| 15 | 5 Hansen Rd S,ÿBrampton,ÿONÿL6W 3H6            | Brampton    | Auto Exhaust System, Alternator, Electrical Servic | 2147483647 | http://friendsautorepairservic |          0.00 |
+| 16 | 29 Kenilworth Ave N,ÿHamilton,ÿONÿL8H 4R4      | Hamilton    | European Car Repair, Garages Auto Repairing        | 2147483647 | http://www.thebugshop.ca/      |          0.00 |
+| 17 | 5-1124 Rymal Rd E,ÿHamilton,ÿONÿL8W 3N7        | Hamilton    | Free Car Proof History Report                      | 2147483647 | http://rightwayautosale.com/   |          0.00 |
+| 18 | 78 Cannon St E,ÿHamilton,ÿONÿL8L 1Z9           | Hamilton    | Oil Coolers, Off-road Vehicles, Licensed Mechanics | 2147483647 | http://www.bartonradiatorworks |          0.00 |
+| 19 | 265 Centennial Pky N,ÿHamilton,ÿONÿL8E 4Y5     | Hamilton    | Oil Change, Brakes, Suspensions, Safety Inspection | 2147483647 | http://www.kafzarauto.ca/      |          0.00 |
+| 20 | 1832 Upper James St,ÿHamilton,ÿONÿL9C 2X8      | Hamilton    | Air Conditioning, Auto Repairs                     | 2147483647 | http://www.creightonservicecen |          0.00 |
+| 21 | 310 Main Street Markham N,ÿMarkham,ÿONÿL3P 1Z1 | Markham     | Automotive Service and Repair, Motorcycles Service | 2147483647 | http://authenticltd.com/       |          0.00 |
+| 22 | 16 Laidlaw Blvd,ÿMarkham,ÿONÿL3P 1W7           | Markham     | Car Repair, Diagnostics, Brakes & Tires, Heating & | 2147483647 | https://www.markhamauto.com/   |          0.00 |
+| 23 | 20 Heritage Rd,ÿMarkham,ÿONÿL3P 3P3            | Markham     | Suspension, Air Conditioning, Breaks, Tune Ups     | 2147483647 | http://www.donthomsonautoservi |          0.00 |
+| 24 | 3 Heritage Rd,ÿMarkham,ÿONÿL3P 1M3             | Markham     | Car Motor Scan Analysis, Car Exhaust Systems Repai | 2147483647 | http://hyperfineautos.com/srv/ |          0.00 |
+| 25 | 50 Don Park Rd,ÿMarkham,ÿONÿL3R 1J3            | Markham     | Fast, friendly service! For all your need automobi | 2147483647 | NULL                           |          0.00 |
+| 26 | 573 Chartwell Rd,ÿOakville,ÿONÿL6J 4A8         | Oakville    | Auto repair, Tires, Transmission, Oil change, Tune | 2147483647 | http://eastsideautoservice.ca/ |          0.00 |
+| 27 | ÿ559 Speers Rd,ÿOakville,ÿONÿL6K 2G4           | Oakville    | Car Repair & Service,ÿAuto Repair Garages          | 2147483647 | http://eastsideautoservice.ca/ |          0.00 |
+| 28 | 294 Wyecroft Rd,ÿOakville,ÿONÿL6K 2G7          | Oakville    | Auto Repair Garages                                | 2147483647 | NULL                           |          0.00 |
+| 29 | 234 Speers Rd,ÿOakville,ÿONÿL6K 2E9            | Oakville    | Air Conditioning, Air Conditioning Repair, Air Con | 2147483647 | http://www.oakvilleradiators.c |          0.00 |
+| 30 | 2432 Wyecroft Rd,ÿOakville,ÿONÿL6L 6L3         | Oakville    | Serving Oakville since 1989. Full Automotive, Ligh | 2147483647 | http://www.oakvilletrailersand |          0.00 |
+| 31 | 160 Simcoe St S,ÿOshawa,ÿONÿL1H 4G9            | Oashawa     | High Quality Service at Low Prices. Same Day Servi | 2147483647 | http://www.customexhaustandbra |          0.00 |
+| 32 | 2-197 Bloor St E,ÿOshawa,ÿONÿL1H 3M3           | Oashawa     | Car Accessories, Auto Detailing, Auto Glass        | 2147483647 | http://monroeauto.ca/          |          0.00 |
+| 33 | 1450 Townline Rd N,ÿOshawa,ÿONÿL1H 8L7         | Oashawa     | Transfer Cases, Clutches, Towing Available, Owner  | 2147483647 | NULL                           |          0.00 |
+| 34 | 96 Russett Ave,ÿOshawa,ÿONÿL1G 3R5             | Oashawa     | Automoble Service Repair for Import & Domestic Veh | 2147483647 | https://www.tomlinknight.ca/   |          0.00 |
+| 35 | 1100 Skae Dr,ÿOshawa,ÿONÿL1J 8H6               | Oashawa     | Brakes, Engines, Transmissions, Exhaust, Tires,Saf | 2147483647 | http://lakefronttireauto.ca/   |          0.00 |
+| 36 | 779 Gladstone Ave,ÿOttawa,ÿONÿK1R 6X6          | Ottawa      | Towing & Road Service, Tire Sales & Service        | 2147483647 | http://www.lorelliservice.com/ |          0.00 |
+| 37 | 416 McArthur Ave,ÿOttawa,ÿONÿK1K 1G6           | Ottawa      | Auto Repairing, Auto Tune-up Service, Automobile R | 2147483647 | http://www.americangraffitiaut |          0.00 |
+| 38 | 2285 Baseline Rd,ÿOttawa,ÿONÿK2C 0E2           | Ottawa      | Major & Minor Repairs, Wheel alignment, Air Condit | 2147483647 | NULL                           |          0.00 |
+| 39 | 1406 Bank St,ÿOttawa,ÿONÿK1H 7Y9               | Ottawa      | Car Repair & Service,ÿAuto Repair Garages          | 2147483647 | NULL                           |          0.00 |
+| 40 | 2311 Shore St,ÿOttawa,ÿONÿK1B 3S7              | Ottawa      | General Repairs                                    | 2147483647 | NULL                           |          0.00 |
+| 41 | ÿ1145 Carrick St,ÿThunder Bay,ÿONÿP7B 6M3      | Thunder Bay | Auto Repair, Brakes, Class A Mechanics             | 2147483647 | http://www.actiontirecentre.co |          0.00 |
+| 42 | 725 May St N,ÿThunder Bay,ÿONÿP7C 3S1          | Thunder Bay | Leak Detection, Fuel Tanks, Fuel Injection Systems | 2147483647 | http://www.preferredauto.ca    |          0.00 |
+| 43 | 150 Fortune St,ÿThunder Bay,ÿONÿP7B 5V4        | Thunder Bay | Domestic Auto Parts, Car Parts, Auto Tune Up       | 2147483647 | https://centralautopart.com/   |          0.00 |
+| 44 | 195 Frederica St E,ÿThunder Bay,ÿONÿP7E 3V4    | Thunder Bay | Licensed Class 'A' Mechanics, Front End, Suspensio | 2147483647 | http://www.napaautopro.com/aut |          0.00 |
+| 45 | ÿ327 Cumberland St N,ÿThunder Bay,ÿONÿP7A      | Thunder Bay | Bring in Your Vehicle for Electronic Diagnostics & | 2147483647 | http://crsautocentre.ca/       |          0.00 |
+| 46 | 760 Walker Rd,ÿWindsor,ÿONÿN8W 3P4             | Windsor     | Expert Automobile Repair, Emissions Testing, Brake | 2147483647 | http://www.mihorens.com/       |          0.00 |
+| 47 | 5906 Tecumseh Rd E,ÿWindsor,ÿONÿN8T 1E3        | Windsor     | FREE LOANER VEHICLE,ALL MAJOR AND MINOR REPAIRS    | 2147483647 | http://www.melsautomotive.ca/  |          0.00 |
+| 48 | ÿ3086 Jefferson Blvd,ÿWindsor,ÿONÿN8T 3G9      | Windsor     | All Makes & Models. Free Inspections.ÿ             | 2147483647 | http://www.fazioauto.com/      |          0.00 |
+| 49 | ÿ4350 Tecumseh Rd E,ÿWindsor,ÿONÿN8W 1K3       | Windsor     | Tire Repairs & Replacement                         | 2147483647 | http://www.fjcollision.com/    |          0.00 |
+| 50 | 435 Hanna St E,ÿWindsor,ÿONÿN8X 2N5            | Windsor     | Replacement Vehicles, All Glass Replacement        | 2147483647 | http://www.donatocollision.com |          0.00 |
+| 51 | ÿ3375 Derry Rd E,ÿMississauga,ÿONÿL4T 1A8      | Mississauga | Oil Change, Oil, Fluids, & Filters, Brakes         | 2147483647 | http://www.righttech.ca/       |          0.00 |
+| 52 | 3344 Mavis Rd,ÿMississauga,ÿONÿL5C 1T8         | Mississauga | Car Transmission Services, Car Towing              | 2147483647 | https://www.larrysautoandtruck |          0.00 |
+| 53 | 1160 South Service Rd,ÿMississauga,ÿONÿL5E 1V2 | Mississauga | Fuel Injection Services, Air Conditioning And Elec | 2147483647 | http://www.conshoremotors.com/ |          0.00 |
+| 54 | ÿ7035 Maxwell Rd,ÿMississauga,ÿONÿL5S 1R5      | Mississauga | Air Conditioning Service, Auto Service             | 2147483647 | http://www.maxwellautomotive.c |          0.00 |
+| 55 | 7195 Tranmere Dr,ÿMississauga,ÿONÿL5S 1N4      | Mississauga | Electrical Repairs, Repairs                        | 2147483647 | http://www.autoplusaircare.ca/ |          0.00 |
++----+------------------------------------------------+-------------+----------------------------------------------------+------------+--------------------------------+---------------+
+55 rows in set (0.14 sec)
+
+MariaDB [csd2204]> use csd2204w18
+Database changed
+MariaDB [csd2204w18]> SELECT DISTINCT salary FROM employees e1
+    -> WHERE 4 = (SELECT COUNT(DISTINCT salary)
+    -> FROM employees e2
+    -> WHERE e2.salary <= e1.salary);
++---------+
+| salary  |
++---------+
+| 2500.00 |
++---------+
+1 row in set (0.01 sec)
+
+MariaDB [csd2204w18]> show tables;
++----------------------+
+| Tables_in_csd2204w18 |
++----------------------+
+| animals              |
+| countries            |
+| departments          |
+| employees            |
+| job_history          |
+| jobs                 |
+| locations            |
+| manu                 |
+| pet                  |
+| products             |
+| regions              |
++----------------------+
+11 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from employees;
++-------------+-------------+-------------+----------+--------------------+------------+------------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME  | LAST_NAME   | EMAIL    | PHONE_NUMBER       | HIRE_DATE  | JOB_ID     | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+-------------+-------------+----------+--------------------+------------+------------+----------+----------------+------------+---------------+
+|         100 | Steven      | King        | SKING    | 515.123.4567       | 1987-06-17 | AD_PRES    | 24000.00 |           0.00 |          0 |            90 |
+|         101 | Neena       | Kochhar     | NKOCHHAR | 515.123.4568       | 1987-06-18 | AD_VP      | 17000.00 |           0.00 |        100 |            90 |
+|         102 | Lex         | De Haan     | LDEHAAN  | 515.123.4569       | 1987-06-19 | AD_VP      | 17000.00 |           0.00 |        100 |            90 |
+|         103 | Alexander   | Hunold      | AHUNOLD  | 590.423.4567       | 1987-06-20 | IT_PROG    |  9000.00 |           0.00 |        102 |            60 |
+|         104 | Bruce       | Ernst       | BERNST   | 590.423.4568       | 1987-06-21 | IT_PROG    |  6000.00 |           0.00 |        103 |            60 |
+|         105 | David       | Austin      | DAUSTIN  | 590.423.4569       | 1987-06-22 | IT_PROG    |  4800.00 |           0.00 |        103 |            60 |
+|         106 | Valli       | Pataballa   | VPATABAL | 590.423.4560       | 1987-06-23 | IT_PROG    |  4800.00 |           0.00 |        103 |            60 |
+|         107 | Diana       | Lorentz     | DLORENTZ | 590.423.5567       | 1987-06-24 | IT_PROG    |  4200.00 |           0.00 |        103 |            60 |
+|         108 | Nancy       | Greenberg   | NGREENBE | 515.124.4569       | 1987-06-25 | FI_MGR     | 12000.00 |           0.00 |        101 |           100 |
+|         109 | Daniel      | Faviet      | DFAVIET  | 515.124.4169       | 1987-06-26 | FI_ACCOUNT |  9000.00 |           0.00 |        108 |           100 |
+|         110 | John        | Chen        | JCHEN    | 515.124.4269       | 1987-06-27 | FI_ACCOUNT |  8200.00 |           0.00 |        108 |           100 |
+|         111 | Ismael      | Sciarra     | ISCIARRA | 515.124.4369       | 1987-06-28 | FI_ACCOUNT |  7700.00 |           0.00 |        108 |           100 |
+|         112 | Jose Manuel | Urman       | JMURMAN  | 515.124.4469       | 1987-06-29 | FI_ACCOUNT |  7800.00 |           0.00 |        108 |           100 |
+|         113 | Luis        | Popp        | LPOPP    | 515.124.4567       | 1987-06-30 | FI_ACCOUNT |  6900.00 |           0.00 |        108 |           100 |
+|         114 | Den         | Raphaely    | DRAPHEAL | 515.127.4561       | 1987-07-01 | PU_MAN     | 11000.00 |           0.00 |        100 |            30 |
+|         115 | Alexander   | Khoo        | AKHOO    | 515.127.4562       | 1987-07-02 | PU_CLERK   |  3100.00 |           0.00 |        114 |            30 |
+|         116 | Shelli      | Baida       | SBAIDA   | 515.127.4563       | 1987-07-03 | PU_CLERK   |  2900.00 |           0.00 |        114 |            30 |
+|         117 | Sigal       | Tobias      | STOBIAS  | 515.127.4564       | 1987-07-04 | PU_CLERK   |  2800.00 |           0.00 |        114 |            30 |
+|         118 | Guy         | Himuro      | GHIMURO  | 515.127.4565       | 1987-07-05 | PU_CLERK   |  2600.00 |           0.00 |        114 |            30 |
+|         119 | Karen       | Colmenares  | KCOLMENA | 515.127.4566       | 1987-07-06 | PU_CLERK   |  2500.00 |           0.00 |        114 |            30 |
+|         120 | Matthew     | Weiss       | MWEISS   | 650.123.1234       | 1987-07-07 | ST_MAN     |  8000.00 |           0.00 |        100 |            50 |
+|         121 | Adam        | Fripp       | AFRIPP   | 650.123.2234       | 1987-07-08 | ST_MAN     |  8200.00 |           0.00 |        100 |            50 |
+|         122 | Payam       | Kaufling    | PKAUFLIN | 650.123.3234       | 1987-07-09 | ST_MAN     |  7900.00 |           0.00 |        100 |            50 |
+|         123 | Shanta      | Vollman     | SVOLLMAN | 650.123.4234       | 1987-07-10 | ST_MAN     |  6500.00 |           0.00 |        100 |            50 |
+|         124 | Kevin       | Mourgos     | KMOURGOS | 650.123.5234       | 1987-07-11 | ST_MAN     |  5800.00 |           0.00 |        100 |            50 |
+|         125 | Julia       | Nayer       | JNAYER   | 650.124.1214       | 1987-07-12 | ST_CLERK   |  3200.00 |           0.00 |        120 |            50 |
+|         126 | Irene       | Mikkilineni | IMIKKILI | 650.124.1224       | 1987-07-13 | ST_CLERK   |  2700.00 |           0.00 |        120 |            50 |
+|         127 | James       | Landry      | JLANDRY  | 650.124.1334       | 1987-07-14 | ST_CLERK   |  2400.00 |           0.00 |        120 |            50 |
+|         128 | Steven      | Markle      | SMARKLE  | 650.124.1434       | 1987-07-15 | ST_CLERK   |  2200.00 |           0.00 |        120 |            50 |
+|         129 | Laura       | Bissot      | LBISSOT  | 650.124.5234       | 1987-07-16 | ST_CLERK   |  3300.00 |           0.00 |        121 |            50 |
+|         130 | Mozhe       | Atkinson    | MATKINSO | 650.124.6234       | 1987-07-17 | ST_CLERK   |  2800.00 |           0.00 |        121 |            50 |
+|         131 | James       | Marlow      | JAMRLOW  | 650.124.7234       | 1987-07-18 | ST_CLERK   |  2500.00 |           0.00 |        121 |            50 |
+|         132 | TJ          | Olson       | TJOLSON  | 650.124.8234       | 1987-07-19 | ST_CLERK   |  2100.00 |           0.00 |        121 |            50 |
+|         133 | Jason       | Mallin      | JMALLIN  | 650.127.1934       | 1987-07-20 | ST_CLERK   |  3300.00 |           0.00 |        122 |            50 |
+|         134 | Michael     | Rogers      | MROGERS  | 650.127.1834       | 1987-07-21 | ST_CLERK   |  2900.00 |           0.00 |        122 |            50 |
+|         135 | Ki          | Gee         | KGEE     | 650.127.1734       | 1987-07-22 | ST_CLERK   |  2400.00 |           0.00 |        122 |            50 |
+|         136 | Hazel       | Philtanker  | HPHILTAN | 650.127.1634       | 1987-07-23 | ST_CLERK   |  2200.00 |           0.00 |        122 |            50 |
+|         137 | Renske      | Ladwig      | RLADWIG  | 650.121.1234       | 1987-07-24 | ST_CLERK   |  3600.00 |           0.00 |        123 |            50 |
+|         138 | Stephen     | Stiles      | SSTILES  | 650.121.2034       | 1987-07-25 | ST_CLERK   |  3200.00 |           0.00 |        123 |            50 |
+|         139 | John        | Seo         | JSEO     | 650.121.2019       | 1987-07-26 | ST_CLERK   |  2700.00 |           0.00 |        123 |            50 |
+|         140 | Joshua      | Patel       | JPATEL   | 650.121.1834       | 1987-07-27 | ST_CLERK   |  2500.00 |           0.00 |        123 |            50 |
+|         141 | Trenna      | Rajs        | TRAJS    | 650.121.8009       | 1987-07-28 | ST_CLERK   |  3500.00 |           0.00 |        124 |            50 |
+|         142 | Curtis      | Davies      | CDAVIES  | 650.121.2994       | 1987-07-29 | ST_CLERK   |  3100.00 |           0.00 |        124 |            50 |
+|         143 | Randall     | Matos       | RMATOS   | 650.121.2874       | 1987-07-30 | ST_CLERK   |  2600.00 |           0.00 |        124 |            50 |
+|         144 | Peter       | Vargas      | PVARGAS  | 650.121.2004       | 1987-07-31 | ST_CLERK   |  2500.00 |           0.00 |        124 |            50 |
+|         145 | John        | Russell     | JRUSSEL  | 011.44.1344.429268 | 1987-08-01 | SA_MAN     | 14000.00 |           0.40 |        100 |            80 |
+|         146 | Karen       | Partners    | KPARTNER | 011.44.1344.467268 | 1987-08-02 | SA_MAN     | 13500.00 |           0.30 |        100 |            80 |
+|         147 | Alberto     | Errazuriz   | AERRAZUR | 011.44.1344.429278 | 1987-08-03 | SA_MAN     | 12000.00 |           0.30 |        100 |            80 |
+|         148 | Gerald      | Cambrault   | GCAMBRAU | 011.44.1344.619268 | 1987-08-04 | SA_MAN     | 11000.00 |           0.30 |        100 |            80 |
+|         149 | Eleni       | Zlotkey     | EZLOTKEY | 011.44.1344.429018 | 1987-08-05 | SA_MAN     | 10500.00 |           0.20 |        100 |            80 |
+|         150 | Peter       | Tucker      | PTUCKER  | 011.44.1344.129268 | 1987-08-06 | SA_REP     | 10000.00 |           0.30 |        145 |            80 |
+|         151 | David       | Bernstein   | DBERNSTE | 011.44.1344.345268 | 1987-08-07 | SA_REP     |  9500.00 |           0.25 |        145 |            80 |
+|         152 | Peter       | Hall        | PHALL    | 011.44.1344.478968 | 1987-08-08 | SA_REP     |  9000.00 |           0.25 |        145 |            80 |
+|         153 | Christopher | Olsen       | COLSEN   | 011.44.1344.498718 | 1987-08-09 | SA_REP     |  8000.00 |           0.20 |        145 |            80 |
+|         154 | Nanette     | Cambrault   | NCAMBRAU | 011.44.1344.987668 | 1987-08-10 | SA_REP     |  7500.00 |           0.20 |        145 |            80 |
+|         155 | Oliver      | Tuvault     | OTUVAULT | 011.44.1344.486508 | 1987-08-11 | SA_REP     |  7000.00 |           0.15 |        145 |            80 |
+|         156 | Janette     | King        | JKING    | 011.44.1345.429268 | 1987-08-12 | SA_REP     | 10000.00 |           0.35 |        146 |            80 |
+|         157 | Patrick     | Sully       | PSULLY   | 011.44.1345.929268 | 1987-08-13 | SA_REP     |  9500.00 |           0.35 |        146 |            80 |
+|         158 | Allan       | McEwen      | AMCEWEN  | 011.44.1345.829268 | 1987-08-14 | SA_REP     |  9000.00 |           0.35 |        146 |            80 |
+|         159 | Lindsey     | Smith       | LSMITH   | 011.44.1345.729268 | 1987-08-15 | SA_REP     |  8000.00 |           0.30 |        146 |            80 |
+|         160 | Louise      | Doran       | LDORAN   | 011.44.1345.629268 | 1987-08-16 | SA_REP     |  7500.00 |           0.30 |        146 |            80 |
+|         161 | Sarath      | Sewall      | SSEWALL  | 011.44.1345.529268 | 1987-08-17 | SA_REP     |  7000.00 |           0.25 |        146 |            80 |
+|         162 | Clara       | Vishney     | CVISHNEY | 011.44.1346.129268 | 1987-08-18 | SA_REP     | 10500.00 |           0.25 |        147 |            80 |
+|         163 | Danielle    | Greene      | DGREENE  | 011.44.1346.229268 | 1987-08-19 | SA_REP     |  9500.00 |           0.15 |        147 |            80 |
+|         164 | Mattea      | Marvins     | MMARVINS | 011.44.1346.329268 | 1987-08-20 | SA_REP     |  7200.00 |           0.10 |        147 |            80 |
+|         165 | David       | Lee         | DLEE     | 011.44.1346.529268 | 1987-08-21 | SA_REP     |  6800.00 |           0.10 |        147 |            80 |
+|         166 | Sundar      | Ande        | SANDE    | 011.44.1346.629268 | 1987-08-22 | SA_REP     |  6400.00 |           0.10 |        147 |            80 |
+|         167 | Amit        | Banda       | ABANDA   | 011.44.1346.729268 | 1987-08-23 | SA_REP     |  6200.00 |           0.10 |        147 |            80 |
+|         168 | Lisa        | Ozer        | LOZER    | 011.44.1343.929268 | 1987-08-24 | SA_REP     | 11500.00 |           0.25 |        148 |            80 |
+|         169 | Harrison    | Bloom       | HBLOOM   | 011.44.1343.829268 | 1987-08-25 | SA_REP     | 10000.00 |           0.20 |        148 |            80 |
+|         170 | Tayler      | Fox         | TFOX     | 011.44.1343.729268 | 1987-08-26 | SA_REP     |  9600.00 |           0.20 |        148 |            80 |
+|         171 | William     | Smith       | WSMITH   | 011.44.1343.629268 | 1987-08-27 | SA_REP     |  7400.00 |           0.15 |        148 |            80 |
+|         172 | Elizabeth   | Bates       | EBATES   | 011.44.1343.529268 | 1987-08-28 | SA_REP     |  7300.00 |           0.15 |        148 |            80 |
+|         173 | Sundita     | Kumar       | SKUMAR   | 011.44.1343.329268 | 1987-08-29 | SA_REP     |  6100.00 |           0.10 |        148 |            80 |
+|         174 | Ellen       | Abel        | EABEL    | 011.44.1644.429267 | 1987-08-30 | SA_REP     | 11000.00 |           0.30 |        149 |            80 |
+|         175 | Alyssa      | Hutton      | AHUTTON  | 011.44.1644.429266 | 1987-08-31 | SA_REP     |  8800.00 |           0.25 |        149 |            80 |
+|         176 | Jonathon    | Taylor      | JTAYLOR  | 011.44.1644.429265 | 1987-09-01 | SA_REP     |  8600.00 |           0.20 |        149 |            80 |
+|         177 | Jack        | Livingston  | JLIVINGS | 011.44.1644.429264 | 1987-09-02 | SA_REP     |  8400.00 |           0.20 |        149 |            80 |
+|         178 | Kimberely   | Grant       | KGRANT   | 011.44.1644.429263 | 1987-09-03 | SA_REP     |  7000.00 |           0.15 |        149 |             0 |
+|         179 | Charles     | Johnson     | CJOHNSON | 011.44.1644.429262 | 1987-09-04 | SA_REP     |  6200.00 |           0.10 |        149 |            80 |
+|         180 | Winston     | Taylor      | WTAYLOR  | 650.507.9876       | 1987-09-05 | SH_CLERK   |  3200.00 |           0.00 |        120 |            50 |
+|         181 | Jean        | Fleaur      | JFLEAUR  | 650.507.9877       | 1987-09-06 | SH_CLERK   |  3100.00 |           0.00 |        120 |            50 |
+|         182 | Martha      | Sullivan    | MSULLIVA | 650.507.9878       | 1987-09-07 | SH_CLERK   |  2500.00 |           0.00 |        120 |            50 |
+|         183 | Girard      | Geoni       | GGEONI   | 650.507.9879       | 1987-09-08 | SH_CLERK   |  2800.00 |           0.00 |        120 |            50 |
+|         184 | Nandita     | Sarchand    | NSARCHAN | 650.509.1876       | 1987-09-09 | SH_CLERK   |  4200.00 |           0.00 |        121 |            50 |
+|         185 | Alexis      | Bull        | ABULL    | 650.509.2876       | 1987-09-10 | SH_CLERK   |  4100.00 |           0.00 |        121 |            50 |
+|         186 | Julia       | Dellinger   | JDELLING | 650.509.3876       | 1987-09-11 | SH_CLERK   |  3400.00 |           0.00 |        121 |            50 |
+|         187 | Anthony     | Cabrio      | ACABRIO  | 650.509.4876       | 1987-09-12 | SH_CLERK   |  3000.00 |           0.00 |        121 |            50 |
+|         188 | Kelly       | Chung       | KCHUNG   | 650.505.1876       | 1987-09-13 | SH_CLERK   |  3800.00 |           0.00 |        122 |            50 |
+|         189 | Jennifer    | Dilly       | JDILLY   | 650.505.2876       | 1987-09-14 | SH_CLERK   |  3600.00 |           0.00 |        122 |            50 |
+|         190 | Timothy     | Gates       | TGATES   | 650.505.3876       | 1987-09-15 | SH_CLERK   |  2900.00 |           0.00 |        122 |            50 |
+|         191 | Randall     | Perkins     | RPERKINS | 650.505.4876       | 1987-09-16 | SH_CLERK   |  2500.00 |           0.00 |        122 |            50 |
+|         192 | Sarah       | Bell        | SBELL    | 650.501.1876       | 1987-09-17 | SH_CLERK   |  4000.00 |           0.00 |        123 |            50 |
+|         193 | Britney     | Everett     | BEVERETT | 650.501.2876       | 1987-09-18 | SH_CLERK   |  3900.00 |           0.00 |        123 |            50 |
+|         194 | Samuel      | McCain      | SMCCAIN  | 650.501.3876       | 1987-09-19 | SH_CLERK   |  3200.00 |           0.00 |        123 |            50 |
+|         195 | Vance       | Jones       | VJONES   | 650.501.4876       | 1987-09-20 | SH_CLERK   |  2800.00 |           0.00 |        123 |            50 |
+|         196 | Alana       | Walsh       | AWALSH   | 650.507.9811       | 1987-09-21 | SH_CLERK   |  3100.00 |           0.00 |        124 |            50 |
+|         197 | Kevin       | Feeney      | KFEENEY  | 650.507.9822       | 1987-09-22 | SH_CLERK   |  3000.00 |           0.00 |        124 |            50 |
+|         198 | Donald      | OConnell    | DOCONNEL | 650.507.9833       | 1987-09-23 | SH_CLERK   |  2600.00 |           0.00 |        124 |            50 |
+|         199 | Douglas     | Grant       | DGRANT   | 650.507.9844       | 1987-09-24 | SH_CLERK   |  2600.00 |           0.00 |        124 |            50 |
+|         200 | Jennifer    | Whalen      | JWHALEN  | 515.123.4444       | 1987-09-25 | AD_ASST    |  4400.00 |           0.00 |        101 |            10 |
+|         201 | Michael     | Hartstein   | MHARTSTE | 515.123.5555       | 1987-09-26 | MK_MAN     | 13000.00 |           0.00 |        100 |            20 |
+|         202 | Pat         | Fay         | PFAY     | 603.123.6666       | 1987-09-27 | MK_REP     |  6000.00 |           0.00 |        201 |            20 |
+|         203 | Susan       | Mavris      | SMAVRIS  | 515.123.7777       | 1987-09-28 | HR_REP     |  6500.00 |           0.00 |        101 |            40 |
+|         204 | Hermann     | Baer        | HBAER    | 515.123.8888       | 1987-09-29 | PR_REP     | 10000.00 |           0.00 |        101 |            70 |
+|         205 | Shelley     | Higgins     | SHIGGINS | 515.123.8080       | 1987-09-30 | AC_MGR     | 12000.00 |           0.00 |        101 |           110 |
+|         206 | William     | Gietz       | WGIETZ   | 515.123.8181       | 1987-10-01 | AC_ACCOUNT |  8300.00 |           0.00 |        205 |           110 |
++-------------+-------------+-------------+----------+--------------------+------------+------------+----------+----------------+------------+---------------+
+107 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> desc employees;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| EMPLOYEE_ID    | decimal(6,0) | NO   | PRI | 0       |       |
+| FIRST_NAME     | varchar(20)  | YES  |     | NULL    |       |
+| LAST_NAME      | varchar(25)  | NO   | MUL | NULL    |       |
+| EMAIL          | varchar(25)  | NO   | UNI | NULL    |       |
+| PHONE_NUMBER   | varchar(20)  | YES  |     | NULL    |       |
+| HIRE_DATE      | date         | NO   |     | NULL    |       |
+| JOB_ID         | varchar(10)  | NO   | MUL | NULL    |       |
+| SALARY         | decimal(8,2) | YES  |     | NULL    |       |
+| COMMISSION_PCT | decimal(2,2) | YES  |     | NULL    |       |
+| MANAGER_ID     | decimal(6,0) | YES  | MUL | NULL    |       |
+| DEPARTMENT_ID  | decimal(4,0) | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+11 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> SELECT DISTINCT salary FROM employees e1
+    -> WHERE 4 = (SELECT COUNT(DISTINCT salary)
+    -> FROM employees e2
+    -> WHERE e2.salary <= e1.salary);
++---------+
+| salary  |
++---------+
+| 2500.00 |
++---------+
+1 row in set (0.01 sec)
+
+MariaDB [csd2204w18]> select * from employees LIMIT 10;
++-------------+------------+-----------+----------+--------------+------------+------------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | EMAIL    | PHONE_NUMBER | HIRE_DATE  | JOB_ID     | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+----------+--------------+------------+------------+----------+----------------+------------+---------------+
+|         100 | Steven     | King      | SKING    | 515.123.4567 | 1987-06-17 | AD_PRES    | 24000.00 |           0.00 |          0 |            90 |
+|         101 | Neena      | Kochhar   | NKOCHHAR | 515.123.4568 | 1987-06-18 | AD_VP      | 17000.00 |           0.00 |        100 |            90 |
+|         102 | Lex        | De Haan   | LDEHAAN  | 515.123.4569 | 1987-06-19 | AD_VP      | 17000.00 |           0.00 |        100 |            90 |
+|         103 | Alexander  | Hunold    | AHUNOLD  | 590.423.4567 | 1987-06-20 | IT_PROG    |  9000.00 |           0.00 |        102 |            60 |
+|         104 | Bruce      | Ernst     | BERNST   | 590.423.4568 | 1987-06-21 | IT_PROG    |  6000.00 |           0.00 |        103 |            60 |
+|         105 | David      | Austin    | DAUSTIN  | 590.423.4569 | 1987-06-22 | IT_PROG    |  4800.00 |           0.00 |        103 |            60 |
+|         106 | Valli      | Pataballa | VPATABAL | 590.423.4560 | 1987-06-23 | IT_PROG    |  4800.00 |           0.00 |        103 |            60 |
+|         107 | Diana      | Lorentz   | DLORENTZ | 590.423.5567 | 1987-06-24 | IT_PROG    |  4200.00 |           0.00 |        103 |            60 |
+|         108 | Nancy      | Greenberg | NGREENBE | 515.124.4569 | 1987-06-25 | FI_MGR     | 12000.00 |           0.00 |        101 |           100 |
+|         109 | Daniel     | Faviet    | DFAVIET  | 515.124.4169 | 1987-06-26 | FI_ACCOUNT |  9000.00 |           0.00 |        108 |           100 |
++-------------+------------+-----------+----------+--------------+------------+------------+----------+----------------+------------+---------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from employees DESC LIMIT 10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'DESC LIMIT 10' at line 1
+MariaDB [csd2204w18]> select * from employees ORDER BY employee_id DESC LIMIT 10;
++-------------+------------+-----------+----------+--------------+------------+------------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | EMAIL    | PHONE_NUMBER | HIRE_DATE  | JOB_ID     | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+----------+--------------+------------+------------+----------+----------------+------------+---------------+
+|         206 | William    | Gietz     | WGIETZ   | 515.123.8181 | 1987-10-01 | AC_ACCOUNT |  8300.00 |           0.00 |        205 |           110 |
+|         205 | Shelley    | Higgins   | SHIGGINS | 515.123.8080 | 1987-09-30 | AC_MGR     | 12000.00 |           0.00 |        101 |           110 |
+|         204 | Hermann    | Baer      | HBAER    | 515.123.8888 | 1987-09-29 | PR_REP     | 10000.00 |           0.00 |        101 |            70 |
+|         203 | Susan      | Mavris    | SMAVRIS  | 515.123.7777 | 1987-09-28 | HR_REP     |  6500.00 |           0.00 |        101 |            40 |
+|         202 | Pat        | Fay       | PFAY     | 603.123.6666 | 1987-09-27 | MK_REP     |  6000.00 |           0.00 |        201 |            20 |
+|         201 | Michael    | Hartstein | MHARTSTE | 515.123.5555 | 1987-09-26 | MK_MAN     | 13000.00 |           0.00 |        100 |            20 |
+|         200 | Jennifer   | Whalen    | JWHALEN  | 515.123.4444 | 1987-09-25 | AD_ASST    |  4400.00 |           0.00 |        101 |            10 |
+|         199 | Douglas    | Grant     | DGRANT   | 650.507.9844 | 1987-09-24 | SH_CLERK   |  2600.00 |           0.00 |        124 |            50 |
+|         198 | Donald     | OConnell  | DOCONNEL | 650.507.9833 | 1987-09-23 | SH_CLERK   |  2600.00 |           0.00 |        124 |            50 |
+|         197 | Kevin      | Feeney    | KFEENEY  | 650.507.9822 | 1987-09-22 | SH_CLERK   |  3000.00 |           0.00 |        124 |            50 |
++-------------+------------+-----------+----------+--------------+------------+------------+----------+----------------+------------+---------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from ( select * from employees ORDER BY employee_id DESC LIMIT 10) ORDER BY employee_id asc;
+ERROR 1248 (42000): Every derived table must have its own alias
+MariaDB [csd2204w18]> select * from ( select * from employees ORDER BY employee_id DESC LIMIT 10) sub ORDER BY employee_id asc;
++-------------+------------+-----------+----------+--------------+------------+------------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | EMAIL    | PHONE_NUMBER | HIRE_DATE  | JOB_ID     | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+----------+--------------+------------+------------+----------+----------------+------------+---------------+
+|         197 | Kevin      | Feeney    | KFEENEY  | 650.507.9822 | 1987-09-22 | SH_CLERK   |  3000.00 |           0.00 |        124 |            50 |
+|         198 | Donald     | OConnell  | DOCONNEL | 650.507.9833 | 1987-09-23 | SH_CLERK   |  2600.00 |           0.00 |        124 |            50 |
+|         199 | Douglas    | Grant     | DGRANT   | 650.507.9844 | 1987-09-24 | SH_CLERK   |  2600.00 |           0.00 |        124 |            50 |
+|         200 | Jennifer   | Whalen    | JWHALEN  | 515.123.4444 | 1987-09-25 | AD_ASST    |  4400.00 |           0.00 |        101 |            10 |
+|         201 | Michael    | Hartstein | MHARTSTE | 515.123.5555 | 1987-09-26 | MK_MAN     | 13000.00 |           0.00 |        100 |            20 |
+|         202 | Pat        | Fay       | PFAY     | 603.123.6666 | 1987-09-27 | MK_REP     |  6000.00 |           0.00 |        201 |            20 |
+|         203 | Susan      | Mavris    | SMAVRIS  | 515.123.7777 | 1987-09-28 | HR_REP     |  6500.00 |           0.00 |        101 |            40 |
+|         204 | Hermann    | Baer      | HBAER    | 515.123.8888 | 1987-09-29 | PR_REP     | 10000.00 |           0.00 |        101 |            70 |
+|         205 | Shelley    | Higgins   | SHIGGINS | 515.123.8080 | 1987-09-30 | AC_MGR     | 12000.00 |           0.00 |        101 |           110 |
+|         206 | William    | Gietz     | WGIETZ   | 515.123.8181 | 1987-10-01 | AC_ACCOUNT |  8300.00 |           0.00 |        205 |           110 |
++-------------+------------+-----------+----------+--------------+------------+------------+----------+----------------+------------+---------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from departments;
++---------------+----------------------+------------+-------------+
+| DEPARTMENT_ID | DEPARTMENT_NAME      | MANAGER_ID | LOCATION_ID |
++---------------+----------------------+------------+-------------+
+|            10 | Administration       |        200 |        1700 |
+|            20 | Marketing            |        201 |        1800 |
+|            30 | Purchasing           |        114 |        1700 |
+|            40 | Human Resources      |        203 |        2400 |
+|            50 | Shipping             |        121 |        1500 |
+|            60 | IT                   |        103 |        1400 |
+|            70 | Public Relations     |        204 |        2700 |
+|            80 | Sales                |        145 |        2500 |
+|            90 | Executive            |        100 |        1700 |
+|           100 | Finance              |        108 |        1700 |
+|           110 | Accounting           |        205 |        1700 |
+|           120 | Treasury             |          0 |        1700 |
+|           130 | Corporate Tax        |          0 |        1700 |
+|           140 | Control And Credit   |          0 |        1700 |
+|           150 | Shareholder Services |          0 |        1700 |
+|           160 | Benefits             |          0 |        1700 |
+|           170 | Manufacturing        |          0 |        1700 |
+|           180 | Construction         |          0 |        1700 |
+|           190 | Contracting          |          0 |        1700 |
+|           200 | Operations           |          0 |        1700 |
+|           210 | IT Support           |          0 |        1700 |
+|           220 | NOC                  |          0 |        1700 |
+|           230 | IT Helpdesk          |          0 |        1700 |
+|           240 | Government Sales     |          0 |        1700 |
+|           250 | Retail Sales         |          0 |        1700 |
+|           260 | Recruiting           |          0 |        1700 |
+|           270 | Payroll              |          0 |        1700 |
++---------------+----------------------+------------+-------------+
+27 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT DISTINCT salary FROM employees a
+    -> WHERE 3 >= (SELECT COUNT(DISTINCT salary)
+    -> FROM employees b
+    -> WHERE b.salary >= a.salary)
+    -> ORDER BY a.salary DESC;
++----------+
+| salary   |
++----------+
+| 24000.00 |
+| 17000.00 |
+| 14000.00 |
++----------+
+3 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> SELECT DISTINCT salary FROM employees a
+    -> WHERE 3 >= (SELECT COUNT(DISTINCT salary)
+    -> FROM employees b
+    -> WHERE b.salary <= a.salary)
+    -> ORDER BY a.salary DESC;
++---------+
+| salary  |
++---------+
+| 2400.00 |
+| 2200.00 |
+| 2100.00 |
++---------+
+3 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> SELECT * FROM employees emp1
+    -> WHERE (5) = (SELECT COUNT(DISTINCT(emp2.salary))
+    -> FROM employees emp2
+    -> WHERE emp2.salary > emp1.salary);
++-------------+------------+-----------+----------+--------------------+------------+--------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | EMAIL    | PHONE_NUMBER       | HIRE_DATE  | JOB_ID | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+----------+--------------------+------------+--------+----------+----------------+------------+---------------+
+|         108 | Nancy      | Greenberg | NGREENBE | 515.124.4569       | 1987-06-25 | FI_MGR | 12000.00 |           0.00 |        101 |           100 |
+|         147 | Alberto    | Errazuriz | AERRAZUR | 011.44.1344.429278 | 1987-08-03 | SA_MAN | 12000.00 |           0.30 |        100 |            80 |
+|         205 | Shelley    | Higgins   | SHIGGINS | 515.123.8080       | 1987-09-30 | AC_MGR | 12000.00 |           0.00 |        101 |           110 |
++-------------+------------+-----------+----------+--------------------+------------+--------+----------+----------------+------------+---------------+
+3 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> exit
