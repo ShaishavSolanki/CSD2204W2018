@@ -1,0 +1,503 @@
+MariaDB [csd2204w18]> show tables;
++---------------------------+
+| Tables_in_csd2204w18      |
++---------------------------+
+| cafe                      |
+| cafe_branches             |
+| car_service               |
+| car_service_location      |
+| colleges                  |
+| colleges_branches         |
+| general_stores            |
+| general_stores_branches   |
+| hospital                  |
+| hospital_branches         |
+| jewellery_stores          |
+| jewellery_stores_branches |
+| mall                      |
+| mall_information          |
+| quick_links               |
+| user_registration         |
++---------------------------+
+16 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from hospital_branches;
++------+-------------+------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------+----------------------------------------------------------------+
+| id   | city        | address                                              | services                                                                                                                                                                                           | phone          | website                                                        |
++------+-------------+------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------+----------------------------------------------------------------+
+|    1 | Scarborough | 206-3850 Finch Ave E, Scarborough, ON M1T 3T6        | Ultrasound Training Centre                                                                                                                                                                         | 647-362-2392   |  http://www.nautc.ca/                                          |
+|    2 | Scarborough | 2934 Eglinton Ave E,ÿScarborough,ÿONÿM1J 2E4         | Flu Shot, Vaccination, Methadone Pharmacy, Pain Management, Maternity Care                                                                                                                         | 416-667-8488   | www.noblemedical.ca                                            |
+|    3 | Scarborough | 8 Greystone Walk Dr,ÿToronto,ÿONÿM1K 5J2             | Family Medicine, Dr. Mehrdad Vakilha, Walk-In Medical Clinic, Lab                                                                                                                                  | 416-266-5888   | http://www.greystonemedicalcentre.ca/                          |
+|    4 | Scarborough | 1A-682 Kennedy Rd,ÿScarborough,ÿONÿM1K 2B5           | Breast Surgery, Spinal Surgery, General Surgery, Facial Surgery, Cosmetic Surgery, Cardiac Surgery, Abdominal Surgery, B                                                                           | 647-360-1211   | http://www.popularchoicemedical.ca/                            |
+|    5 | Scarborough | 410-4040 Finch Ave E,ÿScarborough,ÿONÿM1S 4V5        | Our clinic provides exclusive care for the traveler. Through comprehensive assesments prior to departure as well as immunizations and prescriptions, we lessen the risk of illness while away.     | 647-492-9714   | http://www.thecompletetraveler.ca/                             |
+|    6 | Scarborough | 4-4218 LAWRENCE AVE E,ÿSCARBOROUGH,ÿONÿM1E 4X9       | New Walk-in Medical Clinic & Pharmacy in Scarborough ACCEPTING NEW PATIENTS. Our Family Practise & Walk-in clinic has the top hospital_branches using the latest technology.                       | 416-473-2029   | NULL                                                           |
+|    7 | Scarborough | 103-3319 Sheppard Ave E,ÿScarborough,ÿONÿM1T 3K2     | We are here to help you with you pain. If you feel pain that does not go away please give us a call so we can help you. We have helped hundreds of others who are suffering.                       | 647-725-7738   | http://www.mcsharry.org/                                       |
+|    8 | Scarborough | 1939 Kennedy Rd,ÿScarborough,ÿONÿM1P 2L9             | After Hours Walk-In Medical Clinic in Scarborough. Also Open on Saturday.                                                                                                                          | 416-332-2244   | NULL                                                           |
+|    9 | Scarborough | 3-60 Town Centre Crt,ÿScarborough,ÿONÿM1P 0B1        | Walk in Clinc and Pharmacy Available                                                                                                                                                               | 416-792-2000   | https://towncarepharmacy.ca/                                   |
+|   10 | Scarborough | 108-1585 Markham Rd,ÿScarborough,ÿONÿM1B 2W1         | We have the specialists providing first-rate care. Provide the excellent Medical Services in Toronto. Professional and experienced physician and hospital_branches available.                      | 416-299-6063   | http://phcn.ca/premier_health_markham_sheppard/                |
+|   11 | Scarborough | 3050 Lawrence Ave E,ÿScarborough,ÿONÿM1P 2V5         | To provide an outstanding care experience that meets the unique needs of each and every patient.                                                                                                   | 647-846-8638   | http://www.tsh.to/                                             |
+|   12 | Scarborough | 600 University Ave,ÿToronto,ÿONÿM5G 1X5              | NULL                                                                                                                                                                                               | 416-596-4200   | http://www.mshri.on.ca/                                        |
+|   13 | Scarborough | 700 Gordon St,ÿWhitby,ÿONÿL1N 5S9                    | Ontario Shores Centre for Mental Health Sciences (Ontario Shores) is a public teaching hospital providing a range of specialized assessment and treatment services to those living w...            | 1-800-341-6323 | https://ontarioshores.ca/                                      |
+|   14 | Scarborough | 3080 Yonge St,ÿToronto,ÿONÿM4N 3N1                   | We are a full service Cardiology clinic, offering consultations, concurrent care and a full spectrum of diagnositic testing relating to Cardiovascular care. We are committed to exp...            | 647-347-6644   | http://lpcardiology.com/                                       |
+|   15 | Scarborough | 48 River St,ÿToronto,ÿONÿM5A 3N9                     | Riverdale midwives provide primary care to women and their babies throughout their low-risk pregnancy, labour and birth. We continue to care for mother and newborn until 6 weeks po...            | 416-922-4004   | https://www.riverdalemidwives.com/                             |
+|   16 | Scarborough | 4-700 Markham Rd,ÿScarborough,ÿONÿM1H 2A7            | NULL                                                                                                                                                                                               | 647-350-6717   | NULL                                                           |
+|   17 | Scarborough | 407 Yonge St,ÿToronto,ÿONÿM5B 1S9                    | NULL                                                                                                                                                                                               | 416-977-5511   | NULL                                                           |
+|   18 | Scarborough | 30 Bond St,ÿToronto,ÿONÿM5B 1W8                      | NULL                                                                                                                                                                                               | 416-864-6060   | NULL                                                           |
+|   19 | Scarborough | 200 Church St,ÿToronto,ÿONÿM5B 1Z2                   | Humber River Hospital Foundation supports the patient care provided at Humber River Hospital ? one of the largest hospitals in the GTA and soon to be home to North America's first ...            | 416-249-8111   | http://www.hrh.ca/                                             |
+|   20 | Scarborough | Appointments (Capt),ÿToronto,ÿON                     | Achieving Global Impact Exemplary patient care, research and education We are a caring, creative and accountable academic hospital, transforming health care for our patients, our c...            | 416-595-3600   | http://www.uhn.ca/                                             |
+|   21 | Brampton    | ÿ18 Kensington Rd,ÿBrampton,ÿONÿL6T 4S5              | We strive to help patients maintain good cardiovascular health by providing exceptional cardiology testing services in our facility, performed by our team of cardiology diagnostic professionals. | 905-497-8177   | http://bramaleacardiology.com/                                 |
+|   22 | Brampton    | 55 Dusk Dr,ÿBrampton,ÿONÿL6Y 5Z6                     | Walk In Clinic, Prescriptions, Wellness Centre, Family Doctor, Spa, Medical, Pharmacy, Pediatrics, Chiropractic, RMT                                                                               | 289-505-2992   | http://www.duskmedical.ca/                                     |
+|   23 | Brampton    | 2120 North Park Dr,ÿBrampton,ÿONÿL6S 0C9             | When you're feeling under-the-weather, you need quick and attentive medical care. At Brampark Walk-in Clinic in Brampton, our physicians and surgeons are here to help you feel bett..             | 905-792-0100   | NULL                                                           |
+|   24 | Brampton    | 263 Queen St E,ÿBrampton,ÿONÿL6W 4K6                 | Fertility Clinic, Donor Sperm/Donor Egg, Artificial Insemination,Tubal Surgery, IVF/ICSI Egg Freezing, PGD                                                                                         | 905-453-8477   | http://newlifefertility.com/                                   |
+|   25 | Brampton    | 8975 Mclaughlin S,ÿBrampton,ÿONÿL6Y 0Z6              | One Stop for the Doctor's Office, Physio and Massage - Call Today!                                                                                                                                 | 905-451-7863   | NULL                                                           |
+|   26 | Brampton    | 2100 Bovaird Dr E,ÿBrampton,ÿONÿL6R 3J7              | William Osler Health System is one of the largest community hospitals in Canada, serving the diverse communities of Brampton, Etobicoke and surrounding areas of the Greater Toronto...            | NULL           | http://www.williamoslerhs.ca/                                  |
+|   27 | Brampton    | 169 QueenE,ÿBrampton,ÿONÿL6V 1B2                     | NULL                                                                                                                                                                                               | 905-459-0071   | NULL                                                           |
+|   28 | Brampton    | 18 Bottlebrush Dr,ÿBrampton,ÿONÿL6R 2Z5              | NULL                                                                                                                                                                                               | 905-488-0008   | NULL                                                           |
+|   29 | Brampton    | 184 Clarence St,ÿBrampton,ÿONÿL6W 1T3                | NULL                                                                                                                                                                                               | 905-230-6300   | NULL                                                           |
+|   30 | Brampton    | Fire 50 Sky Harbour Dr,ÿBrampton,ÿONÿL6Y 6B8         | NULL                                                                                                                                                                                               | 289-752-5793   | NULL                                                           |
+|   31 | Hamilton    | 699 Concession St,ÿHamilton,ÿONÿL8V 5C2              | NULL                                                                                                                                                                                               | 905-387-9495   | http://www.jcc.hhsc.ca/                                        |
+|   32 | Hamilton    | 7750 Bayview Avenue,ÿThornhill,ÿONÿL3T 4A3           | Founded in 1945, Shouldice Hospital is the world's leading centre of excellence in abdominal wall hernia repair. Designed exclusively to meet the needs of hernia patients, Shouldic...            | 289-514-0291   | https://www.shouldice.com/                                     |
+|   33 | Hamilton    | 100 5th St W,ÿHamilton,ÿONÿL9C 0E3                   | NULL                                                                                                                                                                                               | 905-522-1155   | http://www.stjoes.ca/                                          |
+|   34 | Hamilton    | 711 Concession St,ÿHamilton,ÿONÿL8V 1C3              | NULL                                                                                                                                                                                               | 905-521-2100   | http://hamiltonhealthsciences.ca/                              |
+|   35 | Hamilton    | 88 Maplewood Ave,ÿHamilton,ÿONÿL8M 1W9               | NULL                                                                                                                                                                                               | 905-777-3837   | http://stpetes.ca                                              |
+|   36 | Markham     | 10 Trench St,ÿRichmond Hill,ÿONÿL4C 3W7              | A regional health care provider that includes Mackenzie Richmond Hill Hospital, the future Mackenzie Vaughan Hospital and community-based services.                                                | 289-379-9504   | https://www.mackenziehealth.ca/en/index.aspx                   |
+|   37 | Markham     | 381 Church st,ÿMarkham,ÿONÿL3P 7P3                   | Markham Stouffville Hospital (MSH) is a progressive, two-site community hospital with leading diagnostic services and clinical programs in acute care medicine and surgery.                        | 905-472-7000   | http://www.msh.on.ca/                                          |
+|   38 | Markham     | 596 Davis Dr,ÿNewmarket,ÿONÿL3Y 2P9                  | Equipped with today's latest technology, Southlake's ten operating room suites are located on Level 2 of the East Building.                                                                        | NULL           | http://www.southlakeregional.org/                              |
+|   39 | Markham     | 601-3601 Highway 7,ÿMarkham,ÿONÿL3R 0M3              | NULL                                                                                                                                                                                               | 905-940-9271   | NULL                                                           |
+|   40 | Markham     | 60 Renfrew Dr,ÿMarkham,ÿONÿL3R 0E1                   | The Central Local Health Integration Network (LHIN) is one of 14 LHINs established by the Government of Ontario in 2006.                                                                           | 905-948-1872   | http://www.centrallhin.on.ca/                                  |
+|   41 | Mississauga | 16-2555 Erin Centre Blvd,ÿMississauga,ÿONÿL5M 5H1    | NULL                                                                                                                                                                                               | 905-828-0270   | http://creditvalleyhealthcenter.com/                           |
+|   42 | Mississauga | 777 Dundas St W,ÿMississauga,ÿONÿL5C 4P6             | We pride ourselves in providing daytime and after hours health care with a team of hospital_branches, Walk in and Medical Clinic specialists, rehabilitation professionals.                        | 289-326-1797   | http://www.10to10medical.com/                                  |
+|   43 | Mississauga | 134-1140 Burnhamthorpe Rd W,ÿMississauga,ÿONÿL5C 4E9 | NULL                                                                                                                                                                                               | 905-949-9746   | https://www.hearinglife.ca/                                    |
+|   44 | Mississauga | 100 Queensway W,ÿMississauga,ÿONÿL5B 1B8             | Trillium Health Centre is one of Canada's largest leading academically affiliated health centres with highly specialized regional programs in advanced cardiac surgery.                            | 905-848-7100   | NULL                                                           |
+|   45 | Mississauga | 77 Queensway W,ÿMississauga,ÿONÿL5B 1B7              | NULL                                                                                                                                                                                               | 905-566-5245   | NULL                                                           |
+|   46 | Oakville    | 327 Reynolds St,ÿOakville,ÿONÿL6J 3L7                | NULL                                                                                                                                                                                               | NULL           | NULL                                                           |
+|   47 | Oakville    | 2544 Speers,ÿOAKVILLE,ÿONÿL6L 5W8                    | NULL                                                                                                                                                                                               | 905-465-0026   | http://www.oakvillefamilydental.com/                           |
+|   48 | Oakville    | 2078 Upper Middle Rd E,ÿOakville,ÿONÿL6H 7G5         | NULL                                                                                                                                                                                               | 905-257-1929   | https://www.bucksburnvethospital.com/                          |
+|   49 | Oakville    | 3001 Hospital Gate,ÿOakville,ÿONÿL6M 0L8             | NULL                                                                                                                                                                                               | 905-338-4353   | NULL                                                           |
+|   50 | Oshawa      | 1 Hospital Crt,ÿOshawa,ÿONÿL1G 2B9                   | Lakeridge Health Better Together                                                                                                                                                                   | 289-274-1095   | https://www.lakeridgehealth.on.ca/en/index.asp                 |
+|   51 | Oshawa      | 1 Hospital Court,ÿOshawa,ÿONÿL1G 2B9                 | NULL                                                                                                                                                                                               | 289-274-0728   | NULL                                                           |
+|   52 | Oshawa      | 500 King St W,ÿOshawa,ÿONÿL1J 2K9                    | NULL                                                                                                                                                                                               | 905-576-3444   | http://chronicpainmanagement.ca/                               |
+|   53 | Ottawa      | ÿ1145 Carling Ave,ÿOttawa,ÿONÿK1Z 7K4                | Royal Ottawa Mental Health Centre .                                                                                                                                                                | 613-722-6521   | http://www.theroyal.ca/                                        |
+|   54 | Ottawa      | 1053 Carling Ave,ÿOttawa,ÿONÿK1Y 4E9                 | The Ottawa Hospital provides its health services to over a million people from all over Eastern Ontario.                                                                                           | 613-722-7000   | http://www.ottawahospital.on.ca/                               |
+|   55 | Ottawa      | 43 Bruyere St,ÿOttawa,ÿONÿK1N 5C8                    | NULL                                                                                                                                                                                               | 613-562-6262   | https://www.bruyere.org/                                       |
+|   56 | Thundar Bay | 35 Algoma St N,ÿThunder Bay,ÿONÿP7B 5G7              | NULL                                                                                                                                                                                               | 807-343-2431   | http://sjcg.net/                                               |
+|   57 | Thundar Bay | 980 Oliver Rd,ÿThunder Bay,ÿONÿP7B 6V4               | NULL                                                                                                                                                                                               | 807-684-6000   | http://www.connexontario.ca/                                   |
+|   58 | Thundar Bay | 1100 Roland St,ÿThunder Bay,ÿONÿP7B 5M4              | Our approach to health care is to ensure that the patients needs come first. Involving and engaging patients in their own care, educating them, collaborating with their other healt...            | 807-577-3525   | https://www.northwoodshealthcentre.com/                        |
+|   59 | Windsor     | 1995 Lens Avenue,ÿWindsor,ÿONÿN8W 1L9                | OUTSTANDING CARE ~ NO EXCEPTIONS                                                                                                                                                                   | 226-773-6357   | https://www.wrh.on.ca/Site_Published/wrh_internet/default.aspx |
+|   60 | Windsor     | 6124 Tecumseh Rd E,ÿWindsor,ÿONÿN8T 1E6              | NULL                                                                                                                                                                                               | 519-251-1100   | http://www.windsorendoscopy.com                                |
+|   61 | Windsor     | 3020 Dougall Ave,ÿWindsor,ÿONÿN9E 1S4                | Welcome to our websiteDougall Avenue Veterinary Hospital is a full service veterinary medical facility located in Windsor, Ontario. Our mission is to provide the highest standard o...            | 519-969-7042   | http://dougallvethospital.com/                                 |
+|   62 | Toronto     | 600 University Ave,ÿToronto,ÿONÿM5G 1X5              | NULL                                                                                                                                                                                               | 416-596-4200   | NULL                                                           |
+|   63 | Toronto     | 3080 Yonge St,ÿToronto,ÿONÿM4N 3N1                   | We are a full service Cardiology clinic, offering consultations, concurrent care and a full spectrum of diagnositic testing relating to Cardiovascular care. We are committed to exp...            | 647-347-6644   | http://lpcardiology.com/                                       |
+|   64 | Toronto     | 407 Yonge St,ÿToronto,ÿONÿM5B 1S9                    | NULL                                                                                                                                                                                               | 416-977-5511   | NULL                                                           |
++------+-------------+------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------+----------------------------------------------------------------+
+64 rows in set (0.16 sec)
+
+MariaDB [csd2204w18]> use csd2204w18
+Database changed
+MariaDB [csd2204w18]> use csd2204;
+Database changed
+MariaDB [csd2204]> show tables;
++---------------------------+
+| Tables_in_csd2204         |
++---------------------------+
+| add_bussiness             |
+| add_bussiness_branches    |
+| cafe_restaurants          |
+| cafe_restaurants_branches |
+| car_service               |
+| car_service_location      |
+| colleges                  |
+| colleges_campus           |
+| general_store             |
+| general_store_branches    |
+| hospital                  |
+| hospital_branches         |
+| jewellery_shop            |
+| jewellery_shop_branches   |
+| mall                      |
+| mall_information          |
+| quick_links               |
+| user_registration         |
++---------------------------+
+18 rows in set (0.00 sec)
+
+MariaDB [csd2204]> select * from hospital_branches;
+Empty set (0.04 sec)
+
+MariaDB [csd2204]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| cds2204_1          |
+| csd2204            |
+| csd2204w18         |
+| customers          |
+| day5               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| practice           |
+| sam                |
+| test               |
++--------------------+
+12 rows in set (0.00 sec)
+
+MariaDB [csd2204]> create view d10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [csd2204]> create view  d10_v1 select * from products;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'select * from products' at line 1
+MariaDB [csd2204]> create view  d10_v1 AS select * from products;
+ERROR 1146 (42S02): Table 'csd2204.products' doesn't exist
+MariaDB [csd2204]> create view  d10_v1 AS select * from products;
+Query OK, 0 rows affected (0.08 sec)
+
+MariaDB [csd2204]> select * from d10_v1;
++------+-----------------+-------+--------------+
+| Code | Name            | Price | Manufacturer |
++------+-----------------+-------+--------------+
+|    1 | Hard drive      |   240 |            5 |
+|    2 | Memory          |   120 |            6 |
+|    3 | ZIP drive       |   150 |            4 |
+|    4 | Floppy disk     |     5 |            6 |
+|    5 | Monitor         |   240 |            1 |
+|    6 | DVD drive       |   180 |            2 |
+|    7 | CD drive        |    90 |            2 |
+|    8 | Printer         |   270 |            3 |
+|    9 | Toner cartridge |    66 |            3 |
+|   10 | DVD burner      |   180 |            2 |
+|   11 | Printer         |    40 |            7 |
+|   12 | Toner cartridge |    54 |            7 |
+|   13 | DVD burner      |    78 |            7 |
++------+-----------------+-------+--------------+
+13 rows in set (0.00 sec)
+
+MariaDB [csd2204]> select * from d10_v1 between 6 and 10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'between 6 and 10' at line 1
+MariaDB [csd2204]> select * from d10_v1 where code between 6 and 10;
++------+-----------------+-------+--------------+
+| Code | Name            | Price | Manufacturer |
++------+-----------------+-------+--------------+
+|    6 | DVD drive       |   180 |            2 |
+|    7 | CD drive        |    90 |            2 |
+|    8 | Printer         |   270 |            3 |
+|    9 | Toner cartridge |    66 |            3 |
+|   10 | DVD burner      |   180 |            2 |
++------+-----------------+-------+--------------+
+5 rows in set (0.00 sec)
+
+MariaDB [csd2204]> select * from d10_v1 where code > 6;
++------+-----------------+-------+--------------+
+| Code | Name            | Price | Manufacturer |
++------+-----------------+-------+--------------+
+|    7 | CD drive        |    90 |            2 |
+|    8 | Printer         |   270 |            3 |
+|    9 | Toner cartridge |    66 |            3 |
+|   10 | DVD burner      |   180 |            2 |
+|   11 | Printer         |    40 |            7 |
+|   12 | Toner cartridge |    54 |            7 |
+|   13 | DVD burner      |    78 |            7 |
++------+-----------------+-------+--------------+
+7 rows in set (0.00 sec)
+
+MariaDB [csd2204]> select * from d10_v1 where Name = 'CD drive';
++------+----------+-------+--------------+
+| Code | Name     | Price | Manufacturer |
++------+----------+-------+--------------+
+|    7 | CD drive |    90 |            2 |
++------+----------+-------+--------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204]> select * from d10_v1 where Code IN (3,4,5,6);
++------+-------------+-------+--------------+
+| Code | Name        | Price | Manufacturer |
++------+-------------+-------+--------------+
+|    3 | ZIP drive   |   150 |            4 |
+|    4 | Floppy disk |     5 |            6 |
+|    5 | Monitor     |   240 |            1 |
+|    6 | DVD drive   |   180 |            2 |
++------+-------------+-------+--------------+
+4 rows in set (0.00 sec)
+
+MariaDB [csd2204]> insert into d10_v1 values(
+    -> 14,
+    -> 'Laptop',
+    -> 999,
+    -> 2);
+Query OK, 1 row affected (0.13 sec)
+
+MariaDB [csd2204]> select * from products;
++------+-----------------+-------+--------------+
+| Code | Name            | Price | Manufacturer |
++------+-----------------+-------+--------------+
+|    1 | Hard drive      |   240 |            5 |
+|    2 | Memory          |   120 |            6 |
+|    3 | ZIP drive       |   150 |            4 |
+|    4 | Floppy disk     |     5 |            6 |
+|    5 | Monitor         |   240 |            1 |
+|    6 | DVD drive       |   180 |            2 |
+|    7 | CD drive        |    90 |            2 |
+|    8 | Printer         |   270 |            3 |
+|    9 | Toner cartridge |    66 |            3 |
+|   10 | DVD burner      |   180 |            2 |
+|   11 | Printer         |    40 |            7 |
+|   12 | Toner cartridge |    54 |            7 |
+|   13 | DVD burner      |    78 |            7 |
+|   14 | Laptop          |   999 |            2 |
++------+-----------------+-------+--------------+
+14 rows in set (0.00 sec)
+
+MariaDB [csd2204]> UPDATE d10_v1 SET price = 888 where code = 14;
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [csd2204]> select * from products;
++------+-----------------+-------+--------------+
+| Code | Name            | Price | Manufacturer |
++------+-----------------+-------+--------------+
+|    1 | Hard drive      |   240 |            5 |
+|    2 | Memory          |   120 |            6 |
+|    3 | ZIP drive       |   150 |            4 |
+|    4 | Floppy disk     |     5 |            6 |
+|    5 | Monitor         |   240 |            1 |
+|    6 | DVD drive       |   180 |            2 |
+|    7 | CD drive        |    90 |            2 |
+|    8 | Printer         |   270 |            3 |
+|    9 | Toner cartridge |    66 |            3 |
+|   10 | DVD burner      |   180 |            2 |
+|   11 | Printer         |    40 |            7 |
+|   12 | Toner cartridge |    54 |            7 |
+|   13 | DVD burner      |    78 |            7 |
+|   14 | Laptop          |   888 |            2 |
++------+-----------------+-------+--------------+
+14 rows in set (0.00 sec)
+
+MariaDB [csd2204]> select * from d10_v1;
++------+-----------------+-------+--------------+
+| Code | Name            | Price | Manufacturer |
++------+-----------------+-------+--------------+
+|    1 | Hard drive      |   240 |            5 |
+|    2 | Memory          |   120 |            6 |
+|    3 | ZIP drive       |   150 |            4 |
+|    4 | Floppy disk     |     5 |            6 |
+|    5 | Monitor         |   240 |            1 |
+|    6 | DVD drive       |   180 |            2 |
+|    7 | CD drive        |    90 |            2 |
+|    8 | Printer         |   270 |            3 |
+|    9 | Toner cartridge |    66 |            3 |
+|   10 | DVD burner      |   180 |            2 |
+|   11 | Printer         |    40 |            7 |
+|   12 | Toner cartridge |    54 |            7 |
+|   13 | DVD burner      |    78 |            7 |
+|   14 | Laptop          |   888 |            2 |
++------+-----------------+-------+--------------+
+14 rows in set (0.00 sec)
+
+MariaDB [csd2204]> delete from d10_v1 where code = 14;
+Query OK, 1 row affected (0.15 sec)
+
+MariaDB [csd2204]> select * from d10_v1;
++------+-----------------+-------+--------------+
+| Code | Name            | Price | Manufacturer |
++------+-----------------+-------+--------------+
+|    1 | Hard drive      |   240 |            5 |
+|    2 | Memory          |   120 |            6 |
+|    3 | ZIP drive       |   150 |            4 |
+|    4 | Floppy disk     |     5 |            6 |
+|    5 | Monitor         |   240 |            1 |
+|    6 | DVD drive       |   180 |            2 |
+|    7 | CD drive        |    90 |            2 |
+|    8 | Printer         |   270 |            3 |
+|    9 | Toner cartridge |    66 |            3 |
+|   10 | DVD burner      |   180 |            2 |
+|   11 | Printer         |    40 |            7 |
+|   12 | Toner cartridge |    54 |            7 |
+|   13 | DVD burner      |    78 |            7 |
++------+-----------------+-------+--------------+
+13 rows in set (0.00 sec)
+
+MariaDB [csd2204]> select * from products;
++------+-----------------+-------+--------------+
+| Code | Name            | Price | Manufacturer |
++------+-----------------+-------+--------------+
+|    1 | Hard drive      |   240 |            5 |
+|    2 | Memory          |   120 |            6 |
+|    3 | ZIP drive       |   150 |            4 |
+|    4 | Floppy disk     |     5 |            6 |
+|    5 | Monitor         |   240 |            1 |
+|    6 | DVD drive       |   180 |            2 |
+|    7 | CD drive        |    90 |            2 |
+|    8 | Printer         |   270 |            3 |
+|    9 | Toner cartridge |    66 |            3 |
+|   10 | DVD burner      |   180 |            2 |
+|   11 | Printer         |    40 |            7 |
+|   12 | Toner cartridge |    54 |            7 |
+|   13 | DVD burner      |    78 |            7 |
++------+-----------------+-------+--------------+
+13 rows in set (0.00 sec)
+
+MariaDB [csd2204]> create view d10_v8 as SELECT products.code,products.name "product",manu.name "manufecturer" from manu INNER JOIN products on products.code=manu.code;
+Query OK, 0 rows affected (0.14 sec)
+
+MariaDB [csd2204]> select * from d10_v8;
++------+-----------------+-------------------+
+| code | product         | manufecturer      |
++------+-----------------+-------------------+
+|    1 | Hard drive      | Sony              |
+|    2 | Memory          | Creative Labs     |
+|    3 | ZIP drive       | Hewlett-Packard   |
+|    4 | Floppy disk     | Iomega            |
+|    5 | Monitor         | Fujitsu           |
+|    6 | DVD drive       | Winchester        |
+|    7 | CD drive        | moxDroid Labs Inc |
+|    8 | Printer         | Dell              |
+|    9 | Toner cartridge | Bell Labs         |
++------+-----------------+-------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [csd2204]> insert into d10_v8 values(
+    -> 10,'Laptop','Dell');
+ERROR 1394 (HY000): Can not insert into join view 'csd2204.d10_v8' without fields list
+MariaDB [csd2204]> delete from d10_v8 where code = 9;
+ERROR 1395 (HY000): Can not delete from join view 'csd2204.d10_v8'
+MariaDB [csd2204]> Update d10_v8 manufecturer = 'Asus' where code = 9;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= 'Asus' where code = 9' at line 1
+MariaDB [csd2204]> Update d10_v8 manufecturer = "Asus" where code = 9;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= "Asus" where code = 9' at line 1
+MariaDB [csd2204]> Update d10_v8 SET manufecturer = "Asus" where code = 9;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [csd2204]> select * from d10_v8;
++------+-----------------+-------------------+
+| code | product         | manufecturer      |
++------+-----------------+-------------------+
+|    1 | Hard drive      | Sony              |
+|    2 | Memory          | Creative Labs     |
+|    3 | ZIP drive       | Hewlett-Packard   |
+|    4 | Floppy disk     | Iomega            |
+|    5 | Monitor         | Fujitsu           |
+|    6 | DVD drive       | Winchester        |
+|    7 | CD drive        | moxDroid Labs Inc |
+|    8 | Printer         | Dell              |
+|    9 | Toner cartridge | Asus              |
++------+-----------------+-------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [csd2204]> select * from products_manufacturer;
+ERROR 1146 (42S02): Table 'csd2204.products_manufacturer' doesn't exist
+MariaDB [csd2204]> select * from manu;
++------+-------------------+
+| Code | Name              |
++------+-------------------+
+|    1 | Sony              |
+|    2 | Creative Labs     |
+|    3 | Hewlett-Packard   |
+|    4 | Iomega            |
+|    5 | Fujitsu           |
+|    6 | Winchester        |
+|    7 | moxDroid Labs Inc |
+|    8 | Dell              |
+|    9 | Asus              |
++------+-------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [csd2204]> create view v_today (today) AS select  current_date;
+Query OK, 0 rows affected (0.05 sec)
+
+MariaDB [csd2204]> select * from v_today;
++------------+
+| today      |
++------------+
+| 2018-01-19 |
++------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204]> select * from v_today (NOW) AS select now();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(NOW) AS select now()' at line 1
+MariaDB [csd2204]> select * from v_today (NOW) AS select NOW();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(NOW) AS select NOW()' at line 1
+MariaDB [csd2204]> select * from v_today (Now) AS select Now();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(Now) AS select Now()' at line 1
+MariaDB [csd2204]> select * from v_today (Now) AS select now();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(Now) AS select now()' at line 1
+MariaDB [csd2204]> create or replace view v_today (now) AS select(now);
+ERROR 1054 (42S22): Unknown column 'now' in 'field list'
+MariaDB [csd2204]> create or replace view v_todat (now) AS select(now);
+ERROR 1054 (42S22): Unknown column 'now' in 'field list'
+MariaDB [csd2204]> create or replace view v_todat (now) AS select now();
+Query OK, 0 rows affected (0.12 sec)
+
+MariaDB [csd2204]> select * from v_todat;
++---------------------+
+| now                 |
++---------------------+
+| 2018-01-19 08:53:56 |
++---------------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204]> drop view if exists v_todat;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [csd2204]> select * from products;
++------+-----------------+-------+--------------+
+| Code | Name            | Price | Manufacturer |
++------+-----------------+-------+--------------+
+|    1 | Hard drive      |   240 |            5 |
+|    2 | Memory          |   120 |            6 |
+|    3 | ZIP drive       |   150 |            4 |
+|    4 | Floppy disk     |     5 |            6 |
+|    5 | Monitor         |   240 |            1 |
+|    6 | DVD drive       |   180 |            2 |
+|    7 | CD drive        |    90 |            2 |
+|    8 | Printer         |   270 |            3 |
+|    9 | Toner cartridge |    66 |            3 |
+|   10 | DVD burner      |   180 |            2 |
+|   11 | Printer         |    40 |            7 |
+|   12 | Toner cartridge |    54 |            7 |
+|   13 | DVD burner      |    78 |            7 |
++------+-----------------+-------+--------------+
+13 rows in set (0.00 sec)
+
+MariaDB [csd2204]> select * from manu;
++------+-------------------+
+| Code | Name              |
++------+-------------------+
+|    1 | Sony              |
+|    2 | Creative Labs     |
+|    3 | Hewlett-Packard   |
+|    4 | Iomega            |
+|    5 | Fujitsu           |
+|    6 | Winchester        |
+|    7 | moxDroid Labs Inc |
+|    8 | Dell              |
+|    9 | Asus              |
++------+-------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [csd2204]> select * from d10_v1 LIMIT 5;
++------+-------------+-------+--------------+
+| Code | Name        | Price | Manufacturer |
++------+-------------+-------+--------------+
+|    1 | Hard drive  |   240 |            5 |
+|    2 | Memory      |   120 |            6 |
+|    3 | ZIP drive   |   150 |            4 |
+|    4 | Floppy disk |     5 |            6 |
+|    5 | Monitor     |   240 |            1 |
++------+-------------+-------+--------------+
+5 rows in set (0.00 sec)
+
+MariaDB [csd2204]> select * from d10_v1 LIMIT 5 Order By Code Desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'Order By Code Desc' at line 1
+MariaDB [csd2204]> select * from d10_v1 Order By Code Desc LIMIT 5;
++------+-----------------+-------+--------------+
+| Code | Name            | Price | Manufacturer |
++------+-----------------+-------+--------------+
+|   13 | DVD burner      |    78 |            7 |
+|   12 | Toner cartridge |    54 |            7 |
+|   11 | Printer         |    40 |            7 |
+|   10 | DVD burner      |   180 |            2 |
+|    9 | Toner cartridge |    66 |            3 |
++------+-----------------+-------+--------------+
+5 rows in set (0.00 sec)
+
