@@ -1,0 +1,12 @@
+ CREATE PROCEDURE prime_num()
+    -> BEGIN
+    ->  DECLARE a INT;
+    ->  DECLARE b INT;
+    ->  SET a = 2;
+    ->  SET b = 100;
+    ->  loop_label:LOOP
+    -> if(a%a) = 0;
+    -> THEN LEAVE loop_label
+    -> elseif(a = a + 1);
+    -> END IF;
+    -> END$$
